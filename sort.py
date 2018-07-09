@@ -21,23 +21,35 @@ with open('example.json') as data_file:
     for l in data["links"]:
         linkss.append(l)
 
-
-    for a in nodess:
-        file_data[a["name"]]=[]
-
+    file_data["name"] = "hw_name"
+    file_data["children"] = []
+    for aindex, a in enumerate(nodess):
+        file_data["children"].append({"name":a["name"]})
         print(a["name"])
-        for index, b in enumerate(linkss):
-            if (a["name"] == b["target"]) :
-                print(index,b)
-                file_data[a["name"]].append({"source": b["target"], "weight":b["weight"]})
-            elif a["name"] == b["source"]:
-                file_data[a["name"]].append( {"source": b["target"], "weight": b["weight"]})
+        print(aindex)
+        print(type(aindex))
+        file_data["children"][aindex]["children"] = []
+
+
+
+    for index, b in enumerate(linkss):
+        if ( a["name"] == b["target"]) :
+            print(index, b)
+            file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
+
+        elif (a["name"] == b["source"]):
+            file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
+
+
+        for i in range(0, aindex):
+            if (data["children"][i]["name"] == b["target"]):
+                file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
+
 
     print(json.dumps(file_data,ensure_ascii=False, indent="\t"))
 
     with open('words.json','w',encoding="utf-8") as make_file:
         json.dump(file_data, make_file, ensure_ascii=False, indent="\t")
-
 
     if data["nodes"][3]in nodess:
         print("Yes  ", nodess.index(data["nodes"][3]))
