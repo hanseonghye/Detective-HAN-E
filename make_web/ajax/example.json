@@ -1,0 +1,170 @@
+{
+  "nodes": [
+    {
+      "name": "A.cpp"
+    }, 
+    {
+      "name": "J.cpp"
+    }, 
+    {
+      "name": "A-2.cpp"
+    }, 
+    {
+      "name": "G.cpp"
+    }, 
+    {
+      "name": "A-3.cpp"
+    }, 
+    {
+      "name": "K.cpp"
+    }, 
+    {
+      "name": "C.cpp"
+    }, 
+    {
+      "name": "I.cpp"
+    }, 
+    {
+      "name": "E.cpp"
+    }, 
+    {
+      "name": "B-2.cpp"
+    }, 
+    {
+      "name": "B-1.cpp"
+    }, 
+    {
+      "name": "A-3-2.cpp"
+    }, 
+    {
+      "name": "D.cpp"
+    }, 
+    {
+      "name": "A-3-1.cpp"
+    }, 
+    {
+      "name": "L.cpp"
+    }, 
+    {
+      "name": "A-1.cpp"
+    }, 
+    {
+      "name": "B.cpp"
+    }, 
+    {
+      "name": "F.cpp"
+    }
+  ], 
+  "links": [
+    {
+      "source": "A-3.cpp", 
+      "target": "A-3-2.cpp", 
+      "weight": "1.000"
+    }, 
+    {
+      "source": "B-1.cpp", 
+      "target": "B.cpp", 
+      "weight": "0.938"
+    }, 
+    {
+      "source": "A-3.cpp", 
+      "target": "A-3-1.cpp", 
+      "weight": "0.922"
+    }, 
+    {
+      "source": "A-3-2.cpp", 
+      "target": "A-3-1.cpp", 
+      "weight": "0.922"
+    }, 
+    {
+      "source": "A.cpp", 
+      "target": "A-1.cpp", 
+      "weight": "0.867"
+    }, 
+    {
+      "source": "B-2.cpp", 
+      "target": "B.cpp", 
+      "weight": "0.807"
+    }, 
+    {
+      "source": "B-2.cpp", 
+      "target": "B-1.cpp", 
+      "weight": "0.782"
+    }, 
+    {
+      "source": "A.cpp", 
+      "target": "A-2.cpp", 
+      "weight": "0.696"
+    }, 
+    {
+      "source": "A.cpp", 
+      "target": "A-3.cpp", 
+      "weight": "0.606"
+    }, 
+    {
+      "source": "A.cpp", 
+      "target": "A-3-2.cpp", 
+      "weight": "0.606"
+    }, 
+    {
+      "source": "A.cpp", 
+      "target": "A-3-1.cpp", 
+      "weight": "0.560"
+    }, 
+    {
+      "source": "A-2.cpp", 
+      "target": "A-1.cpp", 
+      "weight": "0.559"
+    }, 
+    {
+      "source": "A-3.cpp", 
+      "target": "A-1.cpp", 
+      "weight": "0.525"
+    }, 
+    {
+      "source": "A-3-2.cpp", 
+      "target": "A-1.cpp", 
+      "weight": "0.525"
+    }, 
+    {
+      "source": "A-2.cpp", 
+      "target": "A-3.cpp", 
+      "weight": "0.492"
+    }, 
+    {
+      "source": "A-2.cpp", 
+      "target": "A-3-2.cpp", 
+      "weight": "0.492"
+    }, 
+    {
+      "source": "A-3-1.cpp", 
+      "target": "A-1.cpp", 
+      "weight": "0.481"
+    }, 
+    {
+      "source": "A-2.cpp", 
+      "target": "A-3-1.cpp", 
+      "weight": "0.475"
+    }, 
+    {
+      "source": "A.cpp", 
+      "target": "B-2.cpp", 
+      "weight": "0.259"
+    }, 
+    {
+      "source": "A-2.cpp", 
+      "target": "B-2.cpp", 
+      "weight": "0.236"
+    }, 
+    {
+      "source": "G.cpp", 
+      "target": "K.cpp", 
+      "weight": "0.222"
+    }, 
+    {
+      "source": "B-2.cpp", 
+      "target": "A-1.cpp", 
+      "weight": "0.212"
+    }
+  ]
+}
