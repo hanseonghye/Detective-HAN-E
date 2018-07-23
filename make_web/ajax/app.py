@@ -50,16 +50,12 @@ def fileUpload():
 			return render_template("home.html")
 
 
-		(link, file, json_data, error_dna, good_dna)=pro(filename)
+		(link, json_data, error_dna, good_dna, dire)=pro(filename)
 
 		endTime=time.time()-startTime
 		endTime=format(endTime,".3f")
 
-		json_result=dict()
-		json_result["result"]=link
-		json_result["file"]=file
-
-		return jsonify(Time=endTime, good=good_dna, pr=json_result["result"] , er=error_dna, re_1=show_R(), re_2=show_pla_R())
+		return jsonify(Time=endTime, good=good_dna, pr=link , er=error_dna, dire=dire )
 
 
 
@@ -70,86 +66,30 @@ def pro(dir_name):
     T_dire="./data/"+T_dir+time.strftime('%H%M%S')
     os.system('unzip ./images/'+T_dir+'.zip'+' -d '+T_dire)
     T_dire=T_dire+"/"
-    DIRE=T_dire
+
     return plagiarism.get_result(T_dire)
 
-def show_pla_R():
 
+@app.route("/show_code", methods=['GET'])
+def show_code():
+    DIRE= request.args.get('where_dir')
+    file1_name= request.args.get('file1')
+    file2_name= request.args.get('file2')
 
-	html="""
-		<form id="result">
-			{% for num in pr %}
-				<p> {{num.file1}}</p>
-			{% endfor %}
-		</form>
-		"""
-	return html
+    path_file1=DIRE+file1_name
+    path_file2=DIRE+file2_name
 
+    file1=open(path_file1,'r')
+    file2=open(path_file2,'r')
+    return render_template('show_code.html',File1_name=file1_name+"\n",File2_name=file2_name+"\n", File1=file1.read(), File2=file2.read())
 
-def show_pla_R2():
-
-
-	html="""
-
-		<table>
-			<thead>
-				<tr>
-					<th><div style="margin-right:30px;">No.    </div></th>
-					<th><div style="margin-right:30px;">File1  </div></th>
-					<th><div style="margin-right:30px;">Len1   </div></th>
-					<th><div style="margin-right:30px;">File2  </div></th>
-					<th><div style="margin-right:30px;">Len2   </div></th>
-					<th><div style="margin-right:100px;">Score </div></th>
-				</tr>
-			</thead>
-			<form id="result">
-			<tbody>
-				
-				{% for num in pr %}
-					<tr>
-						<td><div class="table_style"> {{num.number}}</div></td>									
-							<td><input style="border:0px" name="file1" type="text"  value={{num.file1}} readonly></td>
-							<td><div class="table_style"> {{num.len1}}  </div></td>
-							<td><input style="border:0px" name="file2" type="text"  value={{num.file2}} readonly></td>
-							<td><div class="table_style"> {{num.len2}}  </div></td>
-							<td><input style="margin-right:100px; background: #ffffff; border: 0px;" type="submit" value={{num.score}} ></td>
-					</tr>
-				{% endfor %}
-				
-			</tbody>
-			</form>
-
-		</table>
-		"""
-	return html
-
-def show_R():
-	html="""
-		<h3 style="display:inline-block;">Time : </h3>
-		<h3 style="display:inline-block;" id="time">{{Time}} </h3>
-		<br>
-
-		<p style="font-size:20px; color:#0080FF; bold; "> VAILE CODE </p>
-		<form id="good_code" action="{{ url_for('show_good_code') }}" method="GET">
-			{% for num in good %}
-				<input type="submit" name="good_code" id="good_code" value={{num}}>
-
-			{% endfor %}
-		</form>
-		<hr>
-
-		<p style="font-size:20px; color:#0080FF; bold;"> INVAILD CODE </p>
-		<form id="er_code" action="{{ url_for('show_strange_code') }}" method="GET">
-			{% for num in er %}
-				<input tupe="submit" name="strange_code" id="er_code" value={{num}} &nbsp;&nbsp;&nbsp;>
-			{% endfor %}
-		</form>
-
-		"""
-	return html
-
-
-
+@app.route("/show_one_code", methods=['GET'])
+def show_one_code():
+    DIRE= request.args.get('where_dir')
+    file1_name= request.args.get('file1')
+    path_file1=DIRE+file1_name
+    file1=open(path_file1,'r')
+    return render_template('show_one_code.html',File_name=file1_name+"\n", File=file1.read())
 
 
 if __name__=="__main__":
