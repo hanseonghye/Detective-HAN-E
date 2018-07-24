@@ -6,15 +6,16 @@ file_data = OrderedDict()
 with open('example.json') as data_file:
     data = json.load(data_file)
 
-    pprint(data)
-    print("link 봐라 %s"%data["nodes"][0]["name"], end="\n\n")
-    print(type(data["nodes"][0]["name"]))
+    # pprint(data)
+    # print("link 봐라 %s"%data["nodes"][0]["name"], end="\n\n")
+    # print(type(data["nodes"][0]["name"]))
     # for name, code in data["nodes"].items():
     #     if( code == "201224444_eleccar"):
     #         print("got it")
 
     nodess = []
     linkss = []
+    testtest=[]
     for h in data["nodes"]:
         nodess.append(h)
 
@@ -25,24 +26,17 @@ with open('example.json') as data_file:
     file_data["children"] = []
     for aindex, a in enumerate(nodess):
         file_data["children"].append({"name":a["name"]})
-        print(a["name"])
-        print(aindex)
-        print(type(aindex))
+        # print(a["name"])
+        # print(aindex)
+        # print(type(aindex))
         file_data["children"][aindex]["children"] = []
 
+        for index, b in enumerate(linkss):
+            if ( a["name"] == b["target"]) :
+                # print(index, b)
+                file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
 
-
-    for index, b in enumerate(linkss):
-        if ( a["name"] == b["target"]) :
-            print(index, b)
-            file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
-
-        elif (a["name"] == b["source"]):
-            file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
-
-
-        for i in range(0, aindex):
-            if (data["children"][i]["name"] == b["target"]):
+            elif (a["name"] == b["source"]):
                 file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
 
 
@@ -51,8 +45,15 @@ with open('example.json') as data_file:
     with open('words.json','w',encoding="utf-8") as make_file:
         json.dump(file_data, make_file, ensure_ascii=False, indent="\t")
 
-    if data["nodes"][3]in nodess:
-        print("Yes  ", nodess.index(data["nodes"][3]))
-    else:
-        print("sorry  ")
 
+    #
+    #     for i in range(0, aindex):
+    #         if (data["children"][i]["name"] == b["target"]):
+    #             file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
+    #
+    #
+    #
+    #     if data["nodes"][3]in nodess:
+    #         print("Yes  ", nodess.index(data["nodes"][3]))
+    #     else:
+    #         print("sorry  ")
