@@ -2,8 +2,6 @@ import itertools
 import os
 import subprocess
 
-
-
 def match_score_local(a,b):
     data=subprocess.check_output(('./source/lcs_pro',a,b))
     #print data

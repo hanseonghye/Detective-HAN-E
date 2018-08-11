@@ -61,9 +61,9 @@ with open('example.json') as data_file:
             for lindex, l in enumerate(largetest[aindex]):
                 if a["name"] in l["name"]:
                     print("포함합니다", aindex, lindex, largetest[aindex][lindex], l["name"])
-                    crazy_data["children"][aindex]["children"][lindex]["size"].empty()
-                    crazy_data["children"][aindex]["children"][lindex]["children"] = []
-                    crazy_data["children"][aindex]["children"][lindex]["children"].append(l)
+                    # crazy_data["children"][aindex]["children"][lindex]["size"].empty()
+                    # crazy_data["children"][aindex]["children"][lindex]["children"] = []
+                    # crazy_data["children"][aindex]["children"][lindex]["children"].append(l)
 
 
 
@@ -77,86 +77,3 @@ with open('example.json') as data_file:
 
     with open('crazy.json', 'w', encoding="utf-8") as make_file:
         json.dump(crazy_data, make_file, ensure_ascii=False, indent="\t")
-        # for i in range(0, aindex):
-        #     if (data["children"][i]["name"] == b["target"]):
-        #         file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
-        #
-        #
-        #
-        # if data["nodes"][3]in nodess:
-        #     print("Yes  ", nodess.index(data["nodes"][3]))
-        # else:
-        #     print("sorry  ")
-    #
-    # bnode=[]
-    # for aindex, a in enumerate(nodess):
-    #     for index, b in enumerate(linkss):
-    #         if (a["name"] == b["target"]):
-    #             print(aindex, index)
-    #             bnode.append(b["target"])
-    #     print("same b::::: ", bnode)
-    #     for aa in range(0, aindex):
-    #         for cindex, c in enumerate(largetest[aa]):
-    #             print(aa, cindex)
-    #             if(b["target"]!=c["name"]):
-    #                 print("not same")
-    #             else:
-    #                 print("same")
-    #                 # bnode.pop()
-    #     bnode=[]
-
-    # for aindex, a in enumerate(nodess):
-    #     crazy_data["children"].append({"name": a["name"]})
-    #     crazy_data["children"][aindex]["children"] = []
-    #
-    #     if aindex==0:
-    #         for index, b in enumerate(linkss):
-    #             if (a["name"] == b["target"]):
-    #                 crazy_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
-    #
-    #             elif (a["name"] == b["source"]):
-    #                 crazy_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
-    #     else:
-    #         for index, b in enumerate(linkss):
-    #
-    #             if (a["name"] == b["target"]):
-    #                 crazy_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
-    #
-    #             elif (a["name"] == b["source"]):
-    #                 crazy_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
-    #
-    #  if aindex == 0:
-    #             show_data["children"][aindex]["children"] = largetest[0]
-    #         else:
-    #                 for index, b in enumerate(linkss):
-    #                     if (a["name"] == b["target"]):
-    #                         bnodes.append(index)
-    #                 print(bnodes)
-    #
-    #                 for bindex, bn in enumerate(bnodes):
-    #                     for aa in range(0, aindex):
-    #                         for cindex, c in enumerate(largetest[aa]):
-    #                             if ( linkss[bn] == c["name"]):
-    #                                 bnodes.pop(linkss[bn])
-    #                                 print(linkss[bn], aindex, cindex)
-    #
-    #                     show_data["children"][aindex]["children"].append({"name": linkss[bn]["target"], "size": linkss[bn]["weight"]})
-    #
-    #
-    #                 for index, b in enumerate(linkss):
-    #                     if (a["name"] == b["source"]):
-    #                         snodes.append(index)
-    #                 print(snodes)
-    #
-    #                 for sindex, sn in enumerate(snodes):
-    #                     for aa in range(0, aindex):
-    #                         for cindex, c in enumerate(largetest[aa]):
-    #                             if (linkss[sn] == c["name"]):
-    #                                 bnodes.pop(linkss[sn])
-    #                                 print(linkss[sn], aindex, cindex)
-    #
-    #                         show_data["children"][aindex]["children"].append({"name": linkss[sn]["target"], "size": linkss[sn]["weight"]})
-    #
-    #                 bnodes=[]
-    #                 snodes=[]
-    #

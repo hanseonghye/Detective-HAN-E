@@ -6,12 +6,6 @@ file_data = OrderedDict()
 with open('example.json') as data_file:
     data = json.load(data_file)
 
-    # pprint(data)
-    # print("link 봐라 %s"%data["nodes"][0]["name"], end="\n\n")
-    # print(type(data["nodes"][0]["name"]))
-    # for name, code in data["nodes"].items():
-    #     if( code == "201224444_eleccar"):
-    #         print("got it")
 
     nodess = []
     linkss = []
@@ -26,9 +20,9 @@ with open('example.json') as data_file:
     file_data["children"] = []
     for aindex, a in enumerate(nodess):
         file_data["children"].append({"name":a["name"]})
-        # print(a["name"])
-        # print(aindex)
-        # print(type(aindex))
+        print(a["name"])
+        print(aindex)
+        print(type(aindex))
         file_data["children"][aindex]["children"] = []
 
         for index, b in enumerate(linkss):
