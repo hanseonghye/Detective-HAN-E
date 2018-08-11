@@ -28,7 +28,7 @@ with open('example.json') as data_file:
         for index, b in enumerate(linkss):
             if ( a["name"] == b["target"]) :
                 # print(index, b)
-                file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
+                file_data["children"][aindex]["children"].append({"name": b["source"], "size": b["weight"]})
 
             elif (a["name"] == b["source"]):
                 file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
