@@ -1,0 +1,162 @@
+import json
+from pprint import pprint
+from collections import OrderedDict
+
+file_data = OrderedDict()
+show_data=OrderedDict()
+crazy_data=OrderedDict()
+
+with open('example.json') as data_file:
+    data = json.load(data_file)
+
+    nodess = []
+    linkss = []
+    testtest=[]
+    largetest = []
+
+    for h in data["nodes"]:
+        nodess.append(h)
+
+    for l in data["links"]:
+        linkss.append(l)
+
+
+
+    file_data["name"] = "hw_name"
+    file_data["children"] = []
+
+    for aindex, a in enumerate(nodess):
+        file_data["children"].append({"name": a["name"]})
+        file_data["children"][aindex]["children"] = []
+
+        for bindex, b in enumerate(linkss):
+            if (a["name"] == b["target"]):
+                file_data["children"][aindex]["children"].append({"name": b["source"], "size": b["weight"]})
+                del linkss[bindex]
+
+            elif (a["name"] == b["source"]):
+                file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
+                del linkss[bindex]
+
+
+    show_data["name"] = "hw_name"
+    show_data["children"] = []
+    db = []
+    dbsec=[]
+    index = 0
+    for aindex, a in enumerate(nodess):
+        print(db)
+
+        if not db:
+            print("oh empty,,,,,")
+            show_data["children"].append({"name": a["name"]})
+            show_data["children"][aindex]["children"] = []
+            weights = []
+
+            for windex, w in enumerate(file_data["children"][aindex]["children"]):
+                weights.append(w)
+
+            if len(weights) > 3:
+                for ws in range(3):
+                    show_data["children"][aindex]["children"].append({"name": weights[ws]["name"], "size": weights[ws]["size"]})
+                    db.append(weights[ws]["name"])
+
+                    # show_data["children"][aindex]["children"][ws]["children"].append({"name": weights[ws]["name"], "size": weights[ws]["size"]})
+        else:
+            print("db fulllllll")
+            if a["name"] in db:
+                print("in dbb!!!!!!!!!!!!!!!!!!")
+            else:
+                index += 1
+                show_data["children"].append({"name": a["name"]})
+                show_data["children"][index]["children"] = []
+                weights = []
+
+                for windex, w in enumerate(file_data["children"][aindex]["children"]):
+                    weights.append(w)
+
+                if len(weights) > 3:
+                    aa=3
+                    for ws in range(aa):
+                        if weights[ws]["name"] not in db:
+                            show_data["children"][index]["children"].append({"name": weights[ws]["name"], "size": weights[ws]["size"]})
+                            db.append(weights[ws]["name"])
+                        else:
+                            aa=+1
+
+                elif len(weights) == 2:
+                    aa=2
+                    for ws in range(aa):
+                        if weights[ws]["name"] not in db:
+                            show_data["children"][index]["children"].append(
+                                {"name": weights[ws]["name"], "size": weights[ws]["size"]})
+                            db.append(weights[ws]["name"])
+                        else: aa = +1
+
+                elif len(weights) == 1:
+                    aa = 1
+                    for ws in range(aa):
+                        if weights[ws]["name"] not in db:
+                            show_data["children"][index]["children"].append(
+                                {"name": weights[ws]["name"], "size": weights[ws]["size"]})
+                            db.append(weights[ws]["name"])
+                        else:   aa = +1
+
+        # for aindex, a in enumerate(nodess):
+        #     show_data["children"].append({"name": a["name"]})
+        #     show_data["children"][aindex]["children"] = []
+        #     weights = []
+        #
+        #     for windex, w in enumerate(file_data["children"][aindex]["children"]):
+        #         weights.append(w)
+        #
+        # for sindex, s in enumerate(weights):
+        #     if s["size"] >= "0.5":
+        #         show_data["children"][aindex]["children"].append({"name" : s["name"], "size" : s["size"]})
+        #         if s["name"] == a["name"]:
+        #             print(s["name"], a["name"])
+        #             print(show_data["children"][aindex])
+
+
+
+    # for j in file_data["children"][aindex]["children"]:
+        #     testtest.append(j)
+        #
+        # largetest.append(testtest)
+        # # print(aindex, testtest)
+        # testtest=[]
+
+    #
+    # crazy_data["name"] = "hw_name"
+    # crazy_data["children"] = []
+    #
+    # print(largetest[0])
+    #
+    # for aindex, a in enumerate(nodess):
+    #
+    #     # for bindex, b in enumerate(largetest):
+    #     if aindex == 0:
+    #         crazy_data["children"].append({"name": a["name"]})
+    #         crazy_data["children"][aindex]["children"] = []
+    #         crazy_data["children"][aindex]["children"].append(largetest[0])
+    #
+    #     else:
+    #         for lindex, l in enumerate(largetest[aindex]):
+    #             if a["name"] in l["name"]:
+    #                 print("포함합니다", aindex, lindex, largetest[aindex][lindex], l["name"])
+    #                 # crazy_data["children"][aindex]["children"][lindex]["size"].empty()
+    #                 # crazy_data["children"][aindex]["children"][lindex]["children"] = []
+    #                 # crazy_data["children"][aindex]["children"][lindex]["children"].append(l)
+    #
+
+
+    # print(json.dumps(file_data, ensure_ascii=False, indent="\t"))
+
+    with open('testest.json', 'w', encoding="utf-8") as make_file:
+        json.dump(file_data, make_file, ensure_ascii=False, indent="\t")
+
+    with open('show.json', 'w', encoding="utf-8") as make_file:
+        json.dump(show_data, make_file, ensure_ascii=False, indent="\t")
+
+    # with open('crazy.json', 'w', encoding="utf-8") as make_file:
+    #     json.dump(crazy_data, make_file, ensure_ascii=False, indent="\t")
