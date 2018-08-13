@@ -62,6 +62,8 @@ def get_result(test_dir):
         ext=i[1].split('.')
         ext=ext[1]
 
+        print (ext)
+
         if ext == "c" :
             NofC+=1
         elif ext == "cpp" :

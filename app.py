@@ -1,5 +1,3 @@
-#-*- coding: utf-8 -*-
-
 from flask import (
     Flask,
     request,
@@ -119,7 +117,7 @@ def show_graph():
 
             for index, b in enumerate(linkss):
                 if ( a["name"] == b["target"]) :
-                    #print(index, b)
+                    print(index, b)
                     file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
 
                 elif (a["name"] == b["source"]):
