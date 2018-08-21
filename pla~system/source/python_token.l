@@ -123,7 +123,7 @@ void count_print(){
 
 %}
 comment1		"#".*\n|"//".*\r
-comment2		"'''"([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*"'''"| "'''"([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*"'''"
+comment2		"'''"([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*"'''"|\"\"\"([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\"\"\"
 digit 			(([0-9]+)|([0-9]*"."[0-9]+)([eE][-+]?[0-9]+)?)[;]?|"true"|"false"
 String			\"(.*)\"|"'"(.*)"'"
 ID				[\*&]*[a-zA-Z_]+[0-9]*("["([\*&]*[a-zA-Z_0-9]*)"]")*"->"?"."?
@@ -162,94 +162,21 @@ YIELD 			yield
 
 MULTILINE 		"\"
 
+DICT			("dict"[" "]*"()")|"{}"
+
+ARITHM_OP		"+"|"-"|"*"|"/"|"%"|"**"|"//"
+COMPA_OP		"=="|"!="|">"|"<"|">="|"<="
+ASSIGN_OP		"="|"+="|"-="|"*="|"/="|"%/"|"**="|"//="
+BIT_OP			"&"|"|"|"^"|"~"|"<<"|">>"
+
+
 
 %%
 
 {comment1}		;
 {comment2}		;
 
-
-
-{define_fun}{fun_end}	{ define_fun(yytext);  fun_start=1; my_print("#Y");}
-
-{define_fun2}{fun_end}	{ define_fun2(yytext); fun_start=1;  my_print("#Y"); }
-	
-\{			{ my_print("#Y"); if(fun_start==1) ++bra_num;	}
-\}			{ 
-				if(fun_start==1){
-					my_print("#Z");
-					if(bra_num==0){ my_print("}"); printf("\n"); fun_start=0; count=0;}
-					else --bra_num; 			
-			  	}
-			}
-
-
-{increment_op}		{ my_print("#1"); }
-{decrement_op}		{ my_print("#2"); }
-{assignment_op}		{ my_print("#3"); }
-{bit_op}			{ my_print("#4"); }
-{relational_op}		{ my_print("#5"); }
-{logical_op}		{ my_print("#6"); }
-{assign}			{ my_print("#7"); }
-{plus}				{ my_print("#8"); }
-{minu}				{ my_print("#9"); }
-{mul}				{ my_print("#10"); }
-{div}				{ my_print("#11"); }
-{rem}				{ my_print("#12"); }
-
-{IF}				{ my_print("#IF");  }
-{ELSE}				{ my_print("#ELSE");  }
-{FOR}				{ my_print("#FOR"); }
-{WHILE}				{ my_print("#WHILE");  }
-{SWITCH}			{ my_print("#SWITCH"); }
-
-{CONTINUE}			{ my_print("#CONTI"); }
-{BREAK}				{ my_print("#BREAK"); }
-{RETURN}			{ my_print("#RET"); }
-{DEFAULT}			{ my_print("#DF");  }
-{CASE}				{ my_print("#CASE");  }
-
-{call_fun2}			{ print_fun(yytext);  }			//call function
-
-{digit}				{ my_print("#N");  }
-{type}				{ my_print("#TYPE");  }
-
-{ASM}				{ my_print("#ASM");  }	
-{AUTO}				{ my_print("#AUTO"); }
-{CATCH}				{ my_print("#CATCH"); }
-{CLASS}				{ my_print("#CLASS"); }
-{CONST}				{ my_print("#CONST"); }
-{CONST_CAST}		{ my_print("#CONST2"); }
-{DELETE}			{ my_print("#DELETE"); }
-{DO}				{ my_print("#DO"); }
-{ENUM}				{ my_print("#ENUM"); }
-{EXPLICIT}			{ my_print("#EXPL"); }
-{EXPORT}			{ my_print("#EXPORT"); }	
-{EXTERN}			{ my_print("#EXTERN"); }
-{GOTO}				{ my_print("#GOTO"); }
-{FRIEND}			{ my_print("#FRIEND"); }	
-{INLINE}			{ my_print("#INLINE"); }	
-{NAMESPACE}			{ my_print("#NS");  }
-{NEW}				{ my_print("#NEW"); }
-{NULL}				{ my_print("#NULL");}
-{OPERATOR}			{ my_print("#OPERA"); }
-{PRIVATE}			{ my_print("#PRIVATE"); }	
-{PROTECTED}			{ my_print("#PROTE"); }
-{PUBLIC}			{ my_print("#PUBLIC"); }	
-{REGISTER}			{ my_print("#REGISTER"); }
-{SIZEOF}			{ my_print("#SIZEOF"); }	
-{STATIC}			{ my_print("#STATIC"); }	
-{STRUCT}			{ my_print("#STRUCT"); }	
-{THIS}				{ my_print("#THIS"); }
-{TYPEDEF}			{ my_print("#TYPEDEF"); }	
-{TRY}				{ my_print("#TRY"); }
-{THROW}				{ my_print("#THROW"); }
-{TYPEID}			{ my_print("#TPID");  }	
-{TYPENAME}			{ my_print("#TPNAME");}
-{UNION}				{ my_print("#UNION"); }
-{USING}				{ my_print("#USING"); }
-{VIRTUAL}			{ my_print("#VIRTUAL"); }	
-{VOLATILE}			{ my_print("#VOLATILE");}
+int("#VOLATILE");}
 
 
 {ID}			;

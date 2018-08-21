@@ -8,6 +8,7 @@ int bra_num=0;
 int count=0;
 int PRINT_ENTER=4;
 int macro_start=0;
+int line_num=0;
 
 char *substr(char *input, int i_begin, int i_end)
 {
@@ -145,7 +146,11 @@ define_fun2 	[a-zA-Z_]+{stl}[" "]*[&\*]+[a-zA-Z0-9_\n]*"::"?{call_fun}
 
 fun_end 		[" "\n\t\r]*"const"?[" "\n\t\r]*\{
 
-get_point_op		"->"
+
+
+
+
+get_point_op		"->"|
 get_ppont_op		"->*"
 
 bit_op			<<|>>|&|\^|\|~|\|
@@ -316,7 +321,7 @@ SWITCH			"switch"[" "\t]*\(
 
 
 {ID}			;
-\n			{ if(macro_start==1) {  my_print("}"); printf("\n"); macro_start=0; count=0; } }
+\n			{ ++line_num; if(macro_start==1) {  my_print("}"); printf("\n"); macro_start=0; count=0; } }
 .			;
 
 
@@ -330,6 +335,13 @@ main(int argc, char *argv[]){
 	yyin=ff;
 	yylex();
 	fclose(ff);
+
+	char line [10] ="&"
+	char line2 [8];
+	itoa(line_num, line2,10);
+	strcat(line,line2);
+
+	my_print(line);
 }
 
 

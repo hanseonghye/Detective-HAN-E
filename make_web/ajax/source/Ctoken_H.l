@@ -145,31 +145,66 @@ define_fun2 		[a-zA-Z_]+{stl}[" "]*[&\*]+[a-zA-Z0-9_\n]*"::"?{call_fun}
 
 fun_end 		[" "\n\t\r]*"const"?[" "\n\t\r]*\{
 
+get_point_op	"->"
+get_ppont_op	"->*"
 
-bit_op			<<|>>|&|\^|\|~|\|
+bit_op			<<|>>|&|\^|\~|\|
+bit_op_0		"<<"
+bit_op_1		">>"
+bit_op_2		"&"
+bit_op_3		"^"
+bit_op_4		"~"
+bit_op_5		"|"
+
+
 relational_op		<=|>=|>|<|==|!=|\?|:
+relational_op_0		"<="
+relational_op_1		">="
+relational_op_2		">"
+relational_op_3		"<"
+relational_op_4		"=="
+relational_op_5		"!="
+relational_op_6		"?"
+relational_op_7		":"
+
 arithm_op		\+|-|\*|\/|%
 plus			"+"
 minu			"-"
-mul			"*"
-div			"/"
-rem			"%"
+mul				"*"
+div				"/"
+rem				"%"
 
 assignment_op		\+=|-=|\*=|\/=|%=|<<=|>>=|&=|^=|\|=
-assign			=
-increment_op		\+\+
-decrement_op		--
+assignment_op_0		"+="
+assignment_op_1		"-="
+assignment_op_2		"*="
+assignment_op_3		"/="
+assignment_op_4		"%="
+assignment_op_5		"<<="
+assignment_op_6		">>="
+assignment_op_7		"&="
+assignment_op_8		"^="
+assignment_op_9		"|="
+
+
+assign				"="
+increment_op		"++"
+decrement_op		"--"
+
 logical_op		&&|\|\||!
+logical_op_0		"&&"
+logical_op_1		"||"
+logical_op_2		"!"
 
 
-ASM			asm
+ASM				asm
 AUTO			auto
 CATCH			catch
 CLASS			class
 CONST			const
 CONST_CAST		const_cast
 DELETE			delete
-DO			do
+DO				do
 ENUM			enum
 EXPLICIT		explicit
 EXPORT			export
@@ -178,7 +213,7 @@ GOTO			goto
 FRIEND			friend
 INLINE			inline
 NAMESPACE		namespace
-NEW			new
+NEW				new
 NULL			NULL
 OPERATOR		operator
 PRIVATE			private
@@ -190,7 +225,7 @@ STATIC			static
 STRUCT			struct
 THIS			this
 TYPEDEF			typedef
-TRY			try
+TRY				try
 THROW			throw
 TYPEID			typeid
 TYPENAME		typename
@@ -199,8 +234,18 @@ USING			using
 VIRTUAL			virtual
 VOLATILE		volatile
 
-
-type			bool|char|double|int|long|short|string|unsigned|void|float|signed
+BOOL 			bool
+BYTE 			byte
+CHAR 			char
+DOUBLE 			double
+INT 			int
+LONG  			long
+SHORT 			short
+STRING 			string
+UNSIGNED 		unsigned
+VOID 			void
+FLOAT 			float
+SIGNED 			signed
 
 
 CONTINUE		continue
@@ -209,12 +254,11 @@ RETURN			return
 DEFAULT			default
 CASE			case
 
-IF_FOR_WHILE		(if|for|while|switch)+[" "\t]*\(|"else"[" "\t\n\t]*\(
 
-IF			("if"[" "\t]*\()
+IF				("if"[" "\t]*\()
 ELSE			("else")|("else"[" "\t]+"if"[" "\t]*\()
 WHILE			"while"[" "\t]*\(
-FOR			"for"[" "\t]*\(
+FOR				"for"[" "\t]*\(
 SWITCH			"switch"[" "\t]*\(
 
 
@@ -245,16 +289,47 @@ SWITCH			"switch"[" "\t]*\(
 
 {increment_op}		{ my_print("#1"); }
 {decrement_op}		{ my_print("#2"); }
-{assignment_op}		{ my_print("#3"); }
-{bit_op}		{ my_print("#4"); }
-{relational_op}		{ my_print("#5"); }
-{logical_op}		{ my_print("#6"); }
-{assign}		{ my_print("#7"); }
-{plus}			{ my_print("#8"); }
-{minu}			{ my_print("#9"); }
-{mul}			{ my_print("#10"); }
-{div}			{ my_print("#11"); }
-{rem}			{ my_print("#12"); }
+{get_ppoint_op}		{ my_print("#14")}
+{get_point_op}		{ my_print("#13")}
+
+{assignment_op_0}		{ my_print("#30"); }
+{assignment_op_1}		{ my_print("#31"); }
+{assignment_op_2}		{ my_print("#32"); }
+{assignment_op_3}		{ my_print("#33"); }
+{assignment_op_4}		{ my_print("#34"); }
+{assignment_op_5}		{ my_print("#35"); }
+{assignment_op_6}		{ my_print("#36"); }
+{assignment_op_7}		{ my_print("#37"); }
+{assignment_op_8}		{ my_print("#38"); }
+{assignment_op_9}		{ my_print("#39"); }
+
+
+{bit_op_0}			{ my_print("#40"); }
+{bit_op_1}			{ my_print("#41"); }
+{bit_op_2}			{ my_print("#42"); }
+{bit_op_3}			{ my_print("#43"); }
+{bit_op_4}			{ my_print("#44"); }
+{bit_op_5}			{ my_print("#45"); }
+
+{relational_op_0}		{ my_print("#50"); }
+{relational_op_1}		{ my_print("#51"); }
+{relational_op_2}		{ my_print("#52"); }
+{relational_op_3}		{ my_print("#53"); }
+{relational_op_4}		{ my_print("#54"); }
+{relational_op_5}		{ my_print("#55"); }
+{relational_op_6}		{ my_print("#56"); }
+{relational_op_7}		{ my_print("#57"); }
+
+{logical_op_0}		{ my_print("#60"); }
+{logical_op_1}		{ my_print("#61"); }
+{logical_op_2}		{ my_print("#62"); }
+
+{assign}			{ my_print("#7"); }
+{plus}				{ my_print("#8"); }
+{minu}				{ my_print("#9"); }
+{mul}				{ my_print("#10"); }
+{div}				{ my_print("#11"); }
+{rem}				{ my_print("#12"); }
 
 {IF}			{ my_print("#IF");  }
 {ELSE}			{ my_print("#ELSE");  }
@@ -271,14 +346,27 @@ SWITCH			"switch"[" "\t]*\(
 {call_fun2}		{ print_fun(yytext);  }			//call function
 
 {digit}			{ my_print("#N");  }
-{type}			{ my_print("#TYPE");  }
+
+{BOOL}			{ my_print("#BOOL"); }
+{BYTE}			{ my_print("#BYTE"); }
+{CHAR}			{ my_print("#CHAR"); }
+{DOUBLE}		{ my_print("#DOUBLE"); }
+{INT}			{ my_print("#INT"); }
+{LONG}			{ my_print("#LONG"); }
+{SHORT}			{ my_print("#SHORT"); }
+{STRING}		{ my_print("#STRING"); }
+{UNSIGNED}		{ my_print("#UNSIGNED"); }
+{VOID}			{ my_print("#VOID"); }
+{FLOAT}			{ my_print("#FLOAT"); }
+{SIGNED}		{ my_print("#SIGNED"); }
+
 
 {ASM}			{ my_print("#ASM");  }	
 {AUTO}			{ my_print("#AUTO"); }
 {CATCH}			{ my_print("#CATCH"); }
 {CLASS}			{ my_print("#CLASS"); }
 {CONST}			{ my_print("#CONST"); }
-{CONST_CAST}		{ my_print("#CONST2"); }
+{CONST_CAST}	{ my_print("#CONST2"); }
 {DELETE}		{ my_print("#DELETE"); }
 {DO}			{ my_print("#DO"); }
 {ENUM}			{ my_print("#ENUM"); }
