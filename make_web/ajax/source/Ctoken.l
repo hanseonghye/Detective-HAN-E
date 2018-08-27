@@ -247,8 +247,7 @@ SWITCH			"switch"[" "\t]*\(
 
 {increment_op}		{ my_print("#1"); }
 {decrement_op}		{ my_print("#2"); }
-{get_ppoint_op}		{ my_print("#14")}
-{get_point_op}		{ my_print("#13")}
+{get_point_op}		{ my_print("#13");}
 {assignment_op}		{ my_print("#3"); }
 {bit_op}			{ my_print("#4"); }
 {relational_op}		{ my_print("#5"); }

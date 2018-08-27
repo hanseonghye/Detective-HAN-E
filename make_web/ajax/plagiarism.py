@@ -68,12 +68,12 @@ def get_result(test_dir):
             NofCPP+=1
         elif ext == "java" :
             NofJAVA+=1
-        elif ext == "py" :
-            NofPY+=1
+        # elif ext == "py" :
+        #     NofPY+=1
         else :
+            error_dna.append(i[1])
             Nofelse+=1
-
-
+            continue
 
         name_map[i[1]]=i[1]
         re_node={"name":name_map[i[1]]}
@@ -83,7 +83,7 @@ def get_result(test_dir):
     re_lang["NofC"]=NofC
     re_lang["NofCPP"]=NofCPP
     re_lang["NofJAVA"]=NofJAVA
-    re_lang["NofPY"]=NofPY
+    # re_lang["NofPY"]=NofPY
 
     for pair in itertools.combinations(seq_name_pairs2,2):
         (a,b) = pair
@@ -135,12 +135,13 @@ def get_result(test_dir):
     result["nodes"]=nodes_array
     result["links"]=links_array
 
-    with open('example.json','w') as make_file:
-        json.dump(result,make_file,indent=2)
 
+
+    # with open('example.json','w') as make_file:
+    #     json.dump(result,make_file,indent=2)
 
     print('plotting result.')
-    return (links_array2, json.dumps(result,indent=2), error_dna, re_lang ,TEST_dir, mtc, mtc_N)
+    return (links_array2,nodes_array,links_array , error_dna, re_lang ,TEST_dir, mtc, mtc_N)
 
 
 class re_score:
