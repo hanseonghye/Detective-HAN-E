@@ -1,5 +1,5 @@
-// Get JSON data
-treeJSON = d3.json("words.json", function(error, treeData) {
+treeJSON = d3.json("flare.json", function(error, treeData) {
+
 
     // Calculate total nodes, max label length
     var totalNodes = 0;
@@ -148,6 +148,7 @@ treeJSON = d3.json("words.json", function(error, treeData) {
         .attr("width", viewerWidth)
         .attr("height", viewerHeight)
         .attr("class", "overlay")
+		.attr('transform', 'rotate(90)')
         .call(zoomListener);
 
 
@@ -293,10 +294,17 @@ treeJSON = d3.json("words.json", function(error, treeData) {
             .attr("d", d3.svg.diagonal())
             .attr('pointer-events', 'none');
 
+		link.append("text")
+			.attr("text-anchor","middle")
+			.attr("dy",".3em").text(d.size)
+
         link.attr("d", d3.svg.diagonal());
 
         link.exit().remove();
+
     };
+
+
 
     // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 
