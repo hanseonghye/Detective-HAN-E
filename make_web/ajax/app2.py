@@ -13,12 +13,12 @@ import os, time, json, glob, sys
 from pprint import pprint
 from collections import OrderedDict
 
-import plagiarism 
+import plagiarism
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
-
-
 
 
 from logging import Formatter, FileHandler
@@ -31,7 +31,7 @@ app.logger.addHandler(handler)
 
 app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-
+Adaptive={"on":0,"off":1}
 
 @app.route('/')
 def index():
@@ -39,12 +39,14 @@ def index():
 
 @app.route('/fileUpload', methods=['POST'])
 def fileUpload():
+
     if request.method =='POST':
         if 'file' not in request.files:
             return render_template("home.html")
 
         startTime=time.time()
         target=os.path.join(basedir,'images/')
+        print "start..."
 
         file=request.files['file']
         filename=file.filename
@@ -55,25 +57,40 @@ def fileUpload():
             return render_template("home.html")
 
         json_data=dict()
-        (link, nd, ln, error_dna, re_lang, dire, mtc, mtc_N)=pro(filename)
+        (link, nd, ln, error_dna, re_lang, dire, mtc, mtc_N)=pro(filename,Adaptive[request.form['adaptive']])
         json_data["nodes"]=nd
         json_data["links"]=ln
 
+        try_jsonData=ln
+        try_jsonData=sorted(try_jsonData, key=lambda x:-(float(x["weight"])))
+
+        change_json=dict()
+        change_json["labels"]=[]
+        change_json["series"]=[
+                {
+                    "label": 'label',
+                    "values": []
+                },
+            ]
+
+        for i in try_jsonData :
+            change_json["labels"].append(i["source"]+","+i["target"])
+            change_json["series"][0]["values"].append(i["weight"])
 
         endTime=time.time()-startTime
         endTime=format(endTime,".3f")
         G_data=get_graph(json_data);
 
-        return jsonify(Time=endTime, pr=link , re_lang=re_lang, er=error_dna, dire=dire, maxTokenCode=mtc, maxToken=mtc_N,G_data=G_data)
+        return jsonify(Time=endTime, pr=link , re_lang=re_lang, er=error_dna, dire=dire, maxTokenCode=mtc, maxToken=mtc_N,G_data=G_data,G_data2=change_json)
 
-def pro(dir_name):
+def pro(dir_name,adaptive):
     T_dir=dir_name
     T_dir=T_dir[:len(T_dir)-4]
     T_dire="./data/"+T_dir+time.strftime('%H%M%S')
     os.system('unzip ./images/'+T_dir+'.zip'+' -d '+T_dire)
     T_dire=T_dire+"/"
 
-    return plagiarism.get_result(T_dire)
+    return plagiarism.get_result(T_dire,adaptive)
 
 
 @app.route("/show_code", methods=['GET'])
@@ -98,47 +115,11 @@ def show_one_code():
     return render_template('show_one_code.html',File_name=file1_name+"\n", File=file1.read())
 
 
-# @app.route("/show_graph", methods=['GET'])
-# def show_graph():
-#     file_data = OrderedDict()
-#     with open('example.json') as data_file:
-#         data = json.load(data_file)
-#         nodess = []
-#         linkss = []
-#         testtest=[]
-#         for h in data["nodes"]:
-#             nodess.append(h)
-
-#         for l in data["links"]:
-#             linkss.append(l)
-
-#         file_data["name"] = "hw_name"
-#         file_data["children"] = []
-#         for aindex, a in enumerate(nodess):
-#             file_data["children"].append({"name":a["name"]})
-#             # print(a["name"])
-#             # print(aindex)
-#             # print(type(aindex))
-#             file_data["children"][aindex]["children"] = []
-
-#             for index, b in enumerate(linkss):
-#                 if ( a["name"] == b["target"]) :
-#                     #print(index, b)
-#                     file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
-
-#                 elif (a["name"] == b["source"]):
-#                     file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
-
-#         # with open('words.json','w') as make_file:
-#         #     json.dump(file_data, make_file,indent=2)
-
-#     return render_template("show_graph.html")
-
-
 def get_graph(data):
-
     file_data = OrderedDict()
     show_data = OrderedDict()
+    # with open('example.json') as data_file:
+    #     data = json.load(data_file)
 
     nodess = []
     linkss = []
@@ -150,7 +131,6 @@ def get_graph(data):
     for l in data["links"]:
         linkss.append(l)
 
-    file_data["name"] = "hw_name"
     file_data["children"] = []
     for aindex, a in enumerate(nodess):
         file_data["children"].append({"name":a["name"]})
@@ -158,68 +138,87 @@ def get_graph(data):
 
         for index, b in enumerate(linkss):
             if ( a["name"] == b["target"]) :
-                # print(index, b)
-                file_data["children"][aindex]["children"].append({"name": b["source"], "size": b["weight"]})
+                file_data["children"][aindex]["children"].append({"name": b["source"], "rule": b["weight"]})
 
             elif (a["name"] == b["source"]):
-                file_data["children"][aindex]["children"].append({"name": b["target"], "size": b["weight"]})
+                file_data["children"][aindex]["children"].append({"name": b["target"], "rule": b["weight"]})
 
     for index, file in enumerate(file_data["children"]):
         if len(file["children"]):
-            testtest.append({"source":file["name"],"target":file["children"][0]["name"], "size":file["children"][0]["size"]})
+            testtest.append({"source":file["name"], "target":file["children"][0]["name"], "rule":file["children"][0]["rule"]})
 
     for testindex, test in enumerate(testtest):
         for test2index, test2 in enumerate(testtest):
-            if test["source"] in test2["source"]:
-                if test["target"] in test2["target"]:
-                    del(testtest[test2index])
+            if testindex != test2index:
+                if test["source"] == test2["target"]:
+                    if test["target"] == test2["source"]:
+                        del(testtest[test2index])
 
-            if test["target"] in test2["source"]:
-                if test["source"] in test2["target"]:
-                    del(testtest[test2index])
-
+    # print(testtest)
     node=[]
-    show_data["name"] = "hw_name"
     show_data["children"] = []
     firstIndex=0
     key = 0
+
     for tindex, t in enumerate(testtest):
         if tindex == 0:
             show_data["children"].append({"name":t["source"]})
             show_data["children"][firstIndex]["children"] = []
-            show_data["children"][firstIndex]["children"].append({"name": t["target"], "size":t["size"]})
+            show_data["children"][firstIndex]["children"].append({"name": t["target"], "rule":t["rule"]})
+            ssindex = show_data["children"][firstIndex]["children"].index({"name": t["target"], "rule": t["rule"]})
+            show_data["children"][firstIndex]["children"][ssindex]["children"] = []
             firstIndex+=1
-            print(len(show_data["children"]))
 
         else:
             if len(show_data["children"]) == 0 :
                 show_data["children"].append({"name": t["source"]})
                 show_data["children"][firstIndex]["children"] = []
-                show_data["children"][firstIndex]["children"].append({"name": t["target"], "size": t["size"]})
+                show_data["children"][firstIndex]["children"].append({"name": t["target"], "rule": t["rule"]})
+                ssindex = show_data["children"][firstIndex]["children"].index({"name": t["target"], "rule": t["rule"]})
+                show_data["children"][firstIndex]["children"][ssindex]["children"] = []
                 firstIndex += 1
+                key = 0
+                break
             else:
                 for sindex, s in enumerate(show_data["children"]):
                     if t["target"] == s["name"]:
-                        show_data["children"][sindex]["children"].append({"name": t["source"], "size":t["size"]})
-
+                        show_data["children"][sindex]["children"].append({"name": t["source"], "rule":t["rule"]})
+                        ssindex = show_data["children"][sindex]["children"].index({"name": t["source"], "rule":t["rule"]})
+                        show_data["children"][sindex]["children"][ssindex]["children"] = []
+                        key = 0
+                        break
                     elif t["source"] == s["name"]:
-                        show_data["children"][sindex]["children"].append({"name": t["target"], "size":t["size"]})
-
+                        show_data["children"][sindex]["children"].append({"name": t["target"], "rule":t["rule"]})
+                        ssindex = show_data["children"][sindex]["children"].index({"name": t["target"], "rule":t["rule"]})
+                        show_data["children"][sindex]["children"][ssindex]["children"] = []
+                        key = 0
+                        break
                     else:
                         for ssindex, ss in enumerate(show_data["children"][sindex]["children"]):
-                            if ssindex == 0:
-                                show_data["children"][sindex]["children"][ssindex]["children"] = []
                             if t["target"] == ss["name"]:
-                                show_data["children"][sindex]["children"][ssindex]["children"].append({"name": t["source"], "size": t["size"]})
+                                if t["source"] != s["name"]:
+                                    show_data["children"][sindex]["children"][ssindex]["children"].append({"name": t["source"], "rule": t["rule"]})
+                                else:
+                                    break
+                                key = 0
+                                break
                             elif t["source"] == ss["name"]:
-                                show_data["children"][sindex]["children"][ssindex]["children"].append({"name": t["target"], "size": t["size"]})
+                                if t["target"] != s["name"]:
+                                    show_data["children"][sindex]["children"][ssindex]["children"].append({"name": t["target"], "rule": t["rule"]})
+                                else:
+                                    break
+                                key = 0
+                                break
                             else:
                                 key = -1
+
 
                 if key == -1:
                     show_data["children"].append({"name": t["source"]})
                     show_data["children"][firstIndex]["children"] = []
-                    show_data["children"][firstIndex]["children"].append({"name": t["target"], "size": t["size"]})
+                    show_data["children"][firstIndex]["children"].append({"name": t["target"], "rule": t["rule"]})
+                    ssindex = show_data["children"][firstIndex]["children"].index({"name": t["target"], "rule": t["rule"]})
+                    show_data["children"][firstIndex]["children"][ssindex]["children"] = []
                     firstIndex += 1
                     key = 0
     return show_data

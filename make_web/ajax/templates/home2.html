@@ -1,100 +1,140 @@
 <!DOCTYPE html>
  <html lang="en">
- 
- <head>
 
+ <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" href="static/assets/css/main.css" />
+    <link rel="stylesheet" href="static/assets/css/homeS.css">
     <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css'>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='bootstrap-filestyle-2.1.0/src/bootstrap-filestyle.min.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="static/bootstrap-filestyle-2.1.0/src/bootstrap-filestyle.min.js"></script>
+    <script src="static/assets/js/jquery.min.js"></script>
+    <script src="static/assets/js/jquery.poptrox.min.js"></script>
+    <script src="static/assets/js/skel.min.js"></script>
+    <script src="static/assets/js/main.js"></script>
+    <!--      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"> -->
+    <!--      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous"> -->
+<!--     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> -->
+    <!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script> -->
 
     <script>
 
-    var dir="";
-    var Time;
-    var vaild_code, invaild_code, pro_result ;
+      var dir="";
+      var Time;
+      var vaild_code, invaild_code, pro_result, G_result , Re;
+      var max_token, max_token_line
 
       $(function(){
 
-        $('#file_submit').click(function(){
+        $('#file_submit').click(function(event){
           event.preventDefault();
-          var form_data=new FormData($('#uploadform')[0]);
+          var formData =new FormData($('#uploadform')[0]);
           $.ajax({
             type:'POST',
             url:'/fileUpload',
-            data:form_data,
+            data:formData,
             contentType:false,
             processData:false,
             dataType:'json',
-            success: function(response){            
-              pro_result=response.pr; 
+            success: function(response){
+
+              pro_result=response.pr;
               Time=response.Time;
-              Re=response.re_lang
+              Re=response.re_lang;
+              G_result=response.G_data
+
+              max_token=response.maxTokenCode
+              max_token_line=response.maxToken
+              console.log(Time)
 
               invaild_code=response.er;
               dir=response.dire;
 
+              $('.buttonclass').empty();
+
+              var button_html=`
+                   <button type="button" id="result_btn"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px;  background-color: #9F81F7; color:#ffffff">결과</button>
+                  <button type="button" id="pla_btn"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px; background-color: #9F81F7; color:#ffffff">유사도</button>
+                  <button type="button" id="graph_bnt"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px;  background-color: #9F81F7; color:#ffffff">그래프</button>`;
+
+                  $('.buttonclass').append(button_html);
+
               $('.re').empty();
-              var html=`
-                <h3 style="font-weight: bold display: inline-block;">소요 시간 &nbsp;&nbsp; : `+Time+`sec` +`</h3>` +
-                `<br><br>`+
-                `<h5 style="font-weight: bold display: inline-block;">코드 개수 &nbsp;&nbsp; : `+Re["NofCode"]+"개" +`</h5>`+
-                '<br>'+
-                `<h5 style="font-weight: bold display: inline-block;">C &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : `+Re["NofC"]+"개" +`</h5>`+
-                '<br>'+
-                `<h5 style="font-weight: bold display: inline-block;">C++ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : `+Re["NofCPP"]+"개" +`</h5>`+
-                '<br>'+
-                `<h5 style="font-weight: bold display: inline-block;">PYTHON &nbsp;&nbsp;&nbsp;&nbsp; : `+Re["NofPY"]+"개" +`</h5>`+
-                '<br>'+
-                `<h5 style="font-weight: bold display: inline-block;">JAVA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : `+Re["NofJAVA"]+"개" +`</h5>`+
-                '<br><br>'+
-                `<h5 style="font-weight: bold display: inline-block;">MAX Token code : `+Re["maxToken"]+" line --> " + Re["maxTokenCode"]+`</h5><br><br>`
+              var html='';
+              html=html+
+                  `<div>
+                  <div style="border:none; float: left; width: 20%; padding:15px;">
+                   <div class="image">
 
-              html=html+`
-                <table>
-                  <tr> <td> 코드 개수 `+Re["NofCode"] + ` </td> </tr>`+ 
-                    `<tr> <td> C  `+Re["NofC"]   + ` </td> </tr>`+
-                    `<tr> <td> CPP `+Re["NofCPP"] + ` </td>`+
-                    `<tr> <td> PYTHON ` +Re["NofPY"]  + ` </td> </tr>`+
-                    `<tr> <td> JAVA ` +Re["NofJAVA"]+ ` </td> </tr>`+
-                    `<tr> <td> Max Token Code `+Re["maxToken"]+" line --> " +Re["maxTokenCode"]+`</td></tr>`+
-                  `</table>`
+                    <img src="static/images/all_img.png" style="width: 130px; height: auto;">
+                    <div class="text">
+                      <h3>`+Re["NofCode"]+`</h3>
+                    </div>
+                  </div>
+                  </div>
 
+                  <div style="border:none; float: left; width: 20%; padding:15px;">
+                   <div class="image">
 
+                    <img src="static/images/c_img.png" style="width: 130px; height: auto;">
+                    <div class="text">
+                      <h3>`+Re["NofC"]+`</h3>
+                    </div>
+                  </div>
+                  </div>
+
+                  <div style="border:none; float: left; width: 20%; padding:15px;">
+                  <div class="image">
+                    <img src="static/images/cpp_img.png" style="width: 130px; height: auto;">
+                    <div class="text">
+                      <h3>`+Re["NofCPP"]+`</h3>
+                    </div>
+                  </div>
+                  </div>
+
+                  <div style="border:none; float: left; width: 20%; padding:15px;">
+                    <div class="image">
+                    <img src="static/images/java_img.png" style="width: 130px; height: auto;">
+                    <div class="text">
+                      <h3>`+Re["NofJAVA"]+`</h3>
+                    </div>
+                  </div>
+                  </div>
+
+                  </div>
+                  <br><br><br><br><br><br><br><br><br>
+                  <p style="font-size:20px; color:#ffffff; bold; "> MAX Token Code </p>`
+                  +
+                  `
+                  <input class="showcode" type="submit" style="font-size:20px; font-weight: bold;  display:inline-block;  background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden; outline:none;"   name="show_one_code" id="show_one_code"  value=`+
+                    max_token + '>' +`<p style="font-size:20px; color:#ffffff; display:inline-block"> - `+max_token_line+` line </p>`
 
               html=html+`
               <br>
               <br>
-              <p style="font-size:20px; color:#FE2E2E; bold; "> INVAILD CODE </p>`;
+              <p style="font-size:20px; color:#ffffff; bold; "> INVAILD CODE </p>`;
 
               for ( var i in invaild_code ){
-                var temp='<input class="showcode" type="submit" id="er_code" value='+invaild_code[i]+'>';
+                var temp='<input class="showcode" type="submit"  name="show_one_code" id="show_one_code" value='+invaild_code[i]+'>';
                 html=html+temp;
               }
 
               $('.re').append(html);
 
-      },
+           },
             error: function(jqXHR, testStatus, errorThrown){
-      }
+              console.log("error")
+            }
           });
 
+        });  // end of file submit
 
-        });
 
-
-        $('#div1').on('click','#show_one_code',function(){
+        $('#div1').on('click','#show_one_code',function(event){
           event.preventDefault();
           var file1=$(this).val();
           var where_dir=dir;
@@ -103,91 +143,745 @@
         });
 
 
-        $('#div1').on('click','#score',function(){
+        $('#div1').on('click','#score',function(event){
           event.preventDefault();
           var $td= $(this).closest('tr').children('td');
           var file1= $td.eq(1).text();
           var  file2= $td.eq(3).text();
           var where_dir=dir;
-          window.open('show_code?file1='+file1+'&file2='+file2+'&where_dir='+where_dir, '_blank'); 
+          window.open('show_code?file1='+file1+'&file2='+file2+'&where_dir='+where_dir, '_blank');
+        });
+
+        $('#buttonclass').on('click','#result_btn',function(){
+              $('.re').empty();
+              var html='';
+              html=html+
+                  `<div>
+                  <div style="border:none; float: left; width: 20%; padding:15px;">
+                   <div class="image">
+
+                    <img src="static/images/all_img.png" style="width: 130px; height: auto;">
+                    <div class="text">
+                      <h3>`+Re["NofCode"]+`</h3>
+                    </div>
+                  </div>
+                  </div>
+
+                  <div style="border:none; float: left; width: 20%; padding:15px;">
+                   <div class="image">
+
+                    <img src="static/images/c_img.png" style="width: 130px; height: auto;">
+                    <div class="text">
+                      <h3>`+Re["NofC"]+`</h3>
+                    </div>
+                  </div>
+                  </div>
+
+                  <div style="border:none; float: left; width: 20%; padding:15px;">
+                  <div class="image">
+                    <img src="static/images/cpp_img.png" style="width: 130px; height: auto;">
+                    <div class="text">
+                      <h3>`+Re["NofCPP"]+`</h3>
+                    </div>
+                  </div>
+                  </div>
+
+                  <div style="border:none; float: left; width: 20%; padding:15px;">
+                    <div class="image">
+                    <img src="static/images/java_img.png" style="width: 130px; height: auto;">
+                    <div class="text">
+                      <h3>`+Re["NofJAVA"]+`</h3>
+                    </div>
+                  </div>
+                  </div>
+
+                  </div>
+                  <br><br><br><br><br><br><br><br><br>
+                  <p style="font-size:20px; color:#ffffff; bold; "> MAX Token Code </p>`
+                  +
+                  `
+                  <input class="showcode" type="submit" style="font-size:20px; font-weight:bold; display:inline-block;   background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden; outline:none;"   name="show_one_code" id="show_one_code"  value=`+
+                    max_token + '>'+`<p style="font-size:20px; color:#ffffff; display:inline-block"> - `+max_token_line+` line </p>`
+
+              html=html+`
+              <br>
+              <br>
+              <p style="font-size:20px; color:#ffffff; bold; "> INVAILD CODE </p>`;
+
+              for ( var i in invaild_code ){
+                var temp='<input class="showcode" type="submit"  name="show_one_code" id="show_one_code" value='+invaild_code[i]+'>';
+                html=html+temp;
+              }
+
+              $('.re').append(html);
         });
 
 
-        $('#result_btn').click(function(){
-            event.preventDefault();
-            $('.re').empty();
-            var html=`
-              <h3 style="display: inline-block;">Preocessing Time : `+Time +`sec`+`</h3>` +
-              `<br><br><br>
-              <p style="font-size:20px; color:#0080FF; bold; "> VAILE CODE </p>`
+
+      $('#buttonclass').on('click','#pla_btn',function(event){
+          event.preventDefault();
+          $('.re').empty();
+
+          var html="<barG> </barG>"
+          $('.re').append(html);
 
 
-            for ( var i in vaild_code ){
-              var temp='<input class="showcode" type="submit" id="show_one_code" value='+vaild_code[i]+'>';
-              html=html+temp;
-            }
+          var data=pro_result;
 
-            html=html+`
-            <br>
-            <br>
-            <p style="font-size:20px; color:#0080FF; bold; "> INVAILE CODE </p>`;
+        //sort bars based on value
+          data = data.sort(function (a, b) {
+              return d3.ascending(parseFloat(a.score), parseFloat(b.score));
+          })
 
-            for ( var i in invaild_code ){
-              var temp='<input class="showcode" type="submit" id="show_one_code" value='+invaild_code[i]+'>';
-              html=html+temp;
-            }
+        //set up svg using margin conventions - we'll need plenty of room on the left for labels
+        var margin = {
+            top: 15,
+            right: 55,
+            bottom: 130,
+            left: 250
+        };
 
-            $('.re').append(html);
-        });
+        var width = 1000 - margin.left - margin.right,
+            height = 900 - margin.top - margin.bottom;
 
-        $('#graph_bnt').click(function(){
-            event.preventDefault();
-            window.open('show_graph'); 
-        });
+        var svg = d3.select("barG").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var x = d3.scale.linear()
+            .range([0, width])
+            .domain([0, d3.max(data, function (d) {
+                return d.score;
+            })]);
+
+        var y = d3.scale.ordinal()
+            .rangeRoundBands([height, 0], .1)
+            .domain(data.map(function (d) {
+                return d.file1+" - "+d.file2+" ";
+            }));
+
+        //make y axis to show bar names
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            //no tick marks
+            .tickSize(0)
+            .orient("left");
+
+        var gy = svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+
+        var bars = svg.selectAll(".bar")
+            .data(data)
+            .enter()
+            .append("g")
+            .attr("file1",function(d){
+              return d.file1;
+            })
+            .attr("file2", function(d){
+              return d.file2;
+            })
+
+        //append rects
+        bars.append("rect")
+            .attr("class", "bar")
+            .attr("y", function (d) {
+                return y(d.file1+" - "+d.file2+" ");
+            })
+            .attr("height", y.rangeBand())
+            .attr("x", 0)
+            .attr("width", function (d) {
+                return x(d.score/(1.5));
+            });
+
+        //add a value label to the right of each bar
+        bars.append("text")
+            .attr("class", "label")
+            //y position of the label is halfway down the bar
+            .attr("y", function (d) {
+                return y(d.file1+" - "+d.file2+" ") + y.rangeBand() / 2 + 4;
+            })
+            //x position is 3 pixels to the right of the bar
+            .attr("x", function (d) {
+                return x(d.score/1.5) + 3;
+            })
+            .text(function (d) {
+                return d.score;
+            });
+
+        bars.on('click', function(d,i) {
+
+          var file1=$(this).attr('file1')
+          var file2=$(this).attr('file2')
+          var where_dir=dir
+
+          window.open('show_code?file1='+file1+'&file2='+file2+'&where_dir='+where_dir, '_blank');
+        })
 
 
-        $('#pla_btn').click(function(){
-            event.preventDefault();
-            $('.re').empty();
-      var pr=pro_result;
-      var p_tag="";
-      var array="";
-      var array=`
-      <table>
-        <thead>
-          <tr>
-            <th><div style="margin-right:30px; font-size:20px;">No.    </div></th>
-            <th><div style="margin-right:130px; font-size:20px;">File1  </div></th>
-            <th><div style="margin-right:60px; font-size:20px;">Len1   </div></th>
-            <th><div style="margin-right:130px; font-size:20px;">File2  </div></th>
-            <th><div style="margin-right:60px; font-size:20px;">Len2   </div></th>
-            <th><div style="margin-right:100px;font-size:20px;">Score </div></th>
-          </tr>
-        </thead>`;
-      array=array+'<tbody>';
-
-      for( var i in pr){
-        temp='<tr>'+
-        '<td>'+ pr[i].number + '</td>' +
-        '<td>'+ pr[i].file1  + '</td>' +
-        '<td>'+ pr[i].len1   + '</td>' +
-        '<td>'+ pr[i].file2  +  '</td>' +
-        '<td>'+ pr[i].len2   + '</td>' +
-        '<td>'+ '<input style="margin-right:100px; background: #ffffff; border: 0px;" type="submit" id="score"  value= '+pr[i].score+ '>  </td>' +
-        '</tr>' ;
-        array=array+temp;
-      }
-
-      array=array+ `
-        </tbody>
-        </table> `;
-      $('.re').append(array);
 
       });
 
+
+
+      $('#buttonclass').on('click','#graph_bnt',function(event){
+
+            event.preventDefault();
+            $('.re').empty();
+
+            var treeData=G_result;
+            // Calculate total nodes, max label length
+            var totalNodes = 0;
+            var maxLabelLength = 0;
+            // variables for drag/drop
+            var selectedNode = null;
+            var draggingNode = null;
+            // panning variables
+            var panSpeed = 200;
+            var panBoundary = 20; // Within 20px from edges will pan when dragging.
+            // Misc. variables
+            var i = 0;
+            var duration = 750;
+            var root;
+
+            // size of the diagram
+            var viewerWidth = $(document).width();
+            var viewerHeight = $(document).height();
+
+            var tree = d3.layout.tree()
+                .size([viewerHeight, viewerWidth]);
+
+            // define a d3 diagonal projection for use by the node paths later on.
+            var diagonal = d3.svg.diagonal()
+                .projection(function(d) {
+                    return [d.y, d.x];
+                });
+           var file1, file2;
+            // A recursive helper function for performing some setup by walking through all nodes
+
+            function visit(parent, visitFn, childrenFn) {
+                if (!parent) return;
+
+                visitFn(parent);
+
+                var children = childrenFn(parent);
+                if (children) {
+                    var count = children.length;
+                    for (var i = 0; i < count; i++) {
+                        visit(children[i], visitFn, childrenFn);
+                    }
+                }
+            }
+
+            // Call visit function to establish maxLabelLength
+            visit(treeData, function(d) {
+                totalNodes++;
+                maxLabelLength = Math.max(d.name.length, maxLabelLength);
+
+            }, function(d) {
+                return d.children && d.children.length > 0 ? d.children : null;
+            });
+
+
+            // sort the tree according to the node names
+
+            function sortTree() {
+                tree.sort(function(a, b) {
+                    return b.name.toLowerCase() < a.name.toLowerCase() ? 1 : -1;
+                });
+            }
+
+            // Sort the tree initially incase the JSON isn't in a sorted order.
+            sortTree();
+
+            // TODO: Pan function, can be better implemented.
+
+            function pan(domNode, direction) {
+                var speed = panSpeed;
+                if (panTimer) {
+                    clearTimeout(panTimer);
+                    translateCoords = d3.transform(svgGroup.attr("transform"));
+                    if (direction == 'left' || direction == 'right') {
+                        translateX = direction == 'left' ? translateCoords.translate[0] + speed : translateCoords.translate[0] - speed;
+                        translateY = translateCoords.translate[1];
+                    } else if (direction == 'up' || direction == 'down') {
+                        translateX = translateCoords.translate[0];
+                        translateY = direction == 'up' ? translateCoords.translate[1] + speed : translateCoords.translate[1] - speed;
+                    }
+                    scaleX = translateCoords.scale[0];
+                    scaleY = translateCoords.scale[1];
+                    scale = zoomListener.scale();
+                    svgGroup.transition().attr("transform", "translate(" + translateX + "," + translateY + ")scale(" + scale + ")");
+                    d3.select(domNode).select('g.node').attr("transform", "translate(" + translateX + "," + translateY + ")");
+                    zoomListener.scale(zoomListener.scale());
+                    zoomListener.translate([translateX, translateY]);
+                    panTimer = setTimeout(function() {
+                        pan(domNode, speed, direction);
+                    }, 50);
+                }
+            }
+
+            // Define the zoom function for the zoomable tree
+
+            function zoom() {
+                svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+            }
+
+
+            // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
+            var zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on("zoom", zoom);
+
+            function initiateDrag(d, domNode) {
+                draggingNode = d;
+                d3.select(domNode).select('.ghostCircle').attr('pointer-events', 'none');
+                d3.selectAll('.ghostCircle').attr('class', 'ghostCircle show');
+                d3.select(domNode).attr('class', 'node activeDrag');
+
+                svgGroup.selectAll("g.node").sort(function(a, b) { // select the parent and sort the path's
+                    if (a.id != draggingNode.id) return 1; // a is not the hovered element, send "a" to the back
+                    else return -1; // a is the hovered element, bring "a" to the front
+                });
+
+
+                // if nodes has children, remove the links and nodes
+                if (nodes.length > 1) {
+                    // remove link paths
+                    links = tree.links(nodes);
+                    nodePaths = svgGroup.selectAll("path.link")
+                        .data(links, function(d) {
+                            return d.target.id;
+                        }).remove();
+                    // remove child nodes
+                    nodesExit = svgGroup.selectAll("g.node")
+                        .data(nodes, function(d) {
+                            return d.id;
+                        }).filter(function(d, i) {
+                            if (d.id == draggingNode.id) {
+                                return false;
+                            }
+                            return true;
+                        }).remove();
+                }
+
+                // remove parent link
+                parentLink = tree.links(tree.nodes(draggingNode.parent));
+                svgGroup.selectAll('path.link').filter(function(d, i) {
+                    if (d.target.id == draggingNode.id) {
+                        return true;
+                    }
+                    return false;
+                }).remove();
+
+                dragStarted = null;
+            }
+
+            // define the baseSvg, attaching a class for styling and the zoomListener
+            var baseSvg = d3.select("#div1").append("svg")
+                .attr("width", 1200)
+                .attr("height", 1280)
+                .attr("class", "overlay")
+              .attr('transform', 'rotate(90)')
+                .attr()
+                .call(zoomListener);
+
+
+            // Define the drag listeners for drag/drop behaviour of nodes.
+            dragListener = d3.behavior.drag()
+                .on("dragstart", function(d) {
+                    if (d == root) {
+                        return;
+                    }
+                    dragStarted = true;
+                    nodes = tree.nodes(d);
+                    d3.event.sourceEvent.stopPropagation();
+                    // it's important that we suppress the mouseover event on the node being dragged. Otherwise it will absorb the mouseover event and the underlying node will not detect it d3.select(this).attr('pointer-events', 'none');
+                })
+                .on("drag", function(d) {
+                    if (d == root) {
+                        return;
+                    }
+                    if (dragStarted) {
+                        domNode = this;
+                        initiateDrag(d, domNode);
+                    }
+
+                    // get coords of mouseEvent relative to svg container to allow for panning
+                    relCoords = d3.mouse($('svg').get(0));
+                    if (relCoords[0] < panBoundary) {
+                        panTimer = true;
+                        pan(this, 'left');
+                    } else if (relCoords[0] > ($('svg').width() - panBoundary)) {
+
+                        panTimer = true;
+                        pan(this, 'right');
+                    } else if (relCoords[1] < panBoundary) {
+                        panTimer = true;
+                        pan(this, 'up');
+                    } else if (relCoords[1] > ($('svg').height() - panBoundary)) {
+                        panTimer = true;
+                        pan(this, 'down');
+                    } else {
+                        try {
+                            clearTimeout(panTimer);
+                        } catch (e) {
+
+                        }
+                    }
+
+                    d.x0 += d3.event.dy;
+                    d.y0 += d3.event.dx;
+                    var node = d3.select(this);
+                    node.attr("transform", "translate(" + d.y0 + "," + d.x0 + ")");
+                    updateTempConnector();
+                }).on("dragend", function(d) {
+                    if (d == root) {
+                        return;
+                    }
+                    domNode = this;
+                    if (selectedNode) {
+                        // now remove the element from the parent, and insert it into the new elements children
+                        var index = draggingNode.parent.children.indexOf(draggingNode);
+                        if (index > -1) {
+                            draggingNode.parent.children.splice(index, 1);
+                        }
+                        if (typeof selectedNode.children !== 'undefined' || typeof selectedNode._children !== 'undefined') {
+                            if (typeof selectedNode.children !== 'undefined') {
+                                selectedNode.children.push(draggingNode);
+                            } else {
+                                selectedNode._children.push(draggingNode);
+                            }
+                        } else {
+                            selectedNode.children = [];
+                            selectedNode.children.push(draggingNode);
+                        }
+                        // Make sure that the node being added to is expanded so user can see added node is correctly moved
+                        expand(selectedNode);
+                        sortTree();
+                        endDrag();
+                    } else {
+                        endDrag();
+                    }
+                });
+
+            function endDrag() {
+                selectedNode = null;
+                d3.selectAll('.ghostCircle').attr('class', 'ghostCircle');
+                d3.select(domNode).attr('class', 'node');
+                // now restore the mouseover event or we won't be able to drag a 2nd time
+                d3.select(domNode).select('.ghostCircle').attr('pointer-events', '');
+                updateTempConnector();
+                if (draggingNode !== null) {
+                    update(root);
+                    centerNode(draggingNode);
+                    draggingNode = null;
+                }
+            }
+
+            // Helper functions for collapsing and expanding nodes.
+
+            function collapse(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d._children.forEach(collapse);
+                    d.children = null;
+                }
+            }
+
+            function expand(d) {
+                if (d._children) {
+                    d.children = d._children;
+                    d.children.forEach(expand);
+                    d._children = null;
+                }
+            }
+
+            var overCircle = function(d) {
+                selectedNode = d;
+                updateTempConnector();
+            };
+            var outCircle = function(d) {
+                selectedNode = null;
+                updateTempConnector();
+            };
+
+            // Function to update the temporary connector indicating dragging affiliation
+            var updateTempConnector = function() {
+                var data = [];
+                if (draggingNode !== null && selectedNode !== null) {
+                    // have to flip the source coordinates since we did this for the existing connectors on the original tree
+                    data = [{
+                        source: {
+                            x: selectedNode.y0,
+                            y: selectedNode.x0
+                        },
+                        target: {
+                            x: draggingNode.y0,
+                            y: draggingNode.x0
+                        }
+                    }];
+                }
+                var link = svgGroup.selectAll(".templink").data(data);
+
+                link.enter().append("path")
+                    .attr("class", "templink")
+                    .attr("d", d3.svg.diagonal())
+                    .attr('pointer-events', 'none');
+
+
+                link.attr("d", d3.svg.diagonal());
+
+                link.exit().remove();
+
+            };
+
+            // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
+
+            function centerNode(source) {
+                scale = zoomListener.scale();
+                x = -source.y0;
+                y = -source.x0;
+                x = x * scale + viewerWidth / 2;
+                y = y * scale + viewerHeight / 2;
+                d3.select('g').transition()
+                    .duration(duration)
+                    .attr("transform", "translate(" +x + "," + y + ")scale(" + scale + ")");
+                zoomListener.scale(scale);
+                zoomListener.translate([x, y]);
+            }
+
+            // Toggle children function
+
+            function toggleChildren(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                } else if (d._children) {
+                    d.children = d._children;
+                    d._children = null;
+                }
+                return d;
+            }
+
+            // Toggle children on click.
+
+            function click(d) {
+                if (d3.event.defaultPrevented) return; // click suppressed
+                var where_dir=dir;
+
+                if (d.size != undefined)
+                   file1 = d.parent.name;
+                   file2 = d.name;
+
+              window.open('show_code?file1='+file1+'&file2='+file2+'&where_dir='+where_dir, '_blank');
+            }
+
+            function update(source) {
+                // Compute the new height, function counts total children of root node and sets tree height accordingly.
+                // This prevents the layout looking squashed when new nodes are made visible or looking sparse when nodes are removed
+                // This makes the layout more consistent.
+                var levelWidth = [1];
+                var childCount = function(level, n) {
+
+                    if (n.children && n.children.length > 0) {
+                        if (levelWidth.length <= level + 1) levelWidth.push(0);
+
+                        levelWidth[level + 1] += n.children.length;
+                        n.children.forEach(function(d) {
+                            childCount(level + 1, d);
+                        });
+                    }
+                };
+                childCount(0, root);
+                var newHeight = d3.max(levelWidth) * 25; // 25 pixels per line
+                tree = tree.size([newHeight, viewerWidth]);
+
+                // Compute the new tree layout.
+                var nodes = tree.nodes(root).reverse(),
+                    links = tree.links(nodes);
+
+                // Set widths between levels based on maxLabelLength.
+                nodes.forEach(function(d) {
+                    d.y = (d.depth * (maxLabelLength * 10)); //maxLabelLength * 10px
+                    // alternatively to keep a fixed scale one can set a fixed depth per level
+                    // Normalize for fixed-depth by commenting out below line
+                    // d.y = (d.depth * 500); //500px per level.
+                });
+
+                // Update the nodes…
+                node = svgGroup.selectAll("g.node")
+                    .data(nodes, function(d) {
+                        return d.id || (d.id = ++i);
+                    });
+
+                // Enter any new nodes at the parent's previous position.
+                var nodeEnter = node.enter().append("g")
+                    .call(dragListener)
+                    .attr("class", "node")
+                    .attr("transform", function(d) {
+                        return "translate(" + source.y0 + "," + source.x0 + ")";
+                    })
+                    .on('click', click);
+
+                nodeEnter.append("circle")
+                    .attr('class', 'nodeCircle')
+                    .attr("r", 0)
+                    .style("fill", function(d) {
+                        return d._children ? "lightsteelblue" : "#fff";
+                    });
+
+                nodeEnter.append("text")
+                    .attr("x", function(d) {
+                        return d.children || d._children ? -10 : 10;
+                    })
+                    .attr("dy", ".35em")
+                    .attr('class', 'nodeText')
+                    .attr("text-anchor", function(d) {
+                        return d.children || d._children ? "end" : "start";
+                    })
+                    .text(function(d) {
+                        return d.name;
+                    })
+                    .style("fill-opacity", 0);
+
+                // phantom node to give us mouseover in a radius around it
+                nodeEnter.append("circle")
+                    .attr('class', 'ghostCircle')
+                    .attr("r", 30)
+                    .attr("opacity", 0.2) // change this to zero to hide the target area
+                .style("fill", "red")
+                    .attr('pointer-events', 'mouseover')
+                    .on("mouseover", function(node) {
+                        overCircle(node);
+                    })
+                    .on("mouseout", function(node) {
+                        outCircle(node);
+                    });
+
+                // Update the text to reflect whether node has children or not.
+                node.select('text')
+                    .attr("x", function(d) {
+                        return d.children || d._children ? -10 : 10;
+                    })
+                    .attr("text-anchor", function(d) {
+                        return d.children || d._children ? "end" : "start";
+                    })
+                    .text(function(d) {  // 여기가 노드의 텍스트 표시하는 부분
+                    return d.name ;
+
+                    ///////////////////////////////////file 1, file2 open_window ~~~
+                    file1 = d.parent.name;
+                    file2 = d.name;
+                    });
+
+
+
+                node.select("circle.nodeCircle")
+                    .attr("r", 4.5)
+                    .style("fill", function(d) {
+                        return d._children ? "lightsteelblue" : "#fff";
+                    });
+
+                // Transition nodes to their new position.
+                var nodeUpdate = node.transition()
+                    .duration(duration)
+                    .attr("transform", function(d) {
+                        return "translate(" + d.y + "," + d.x + ")";
+                    });
+
+                // Fade the text in
+                nodeUpdate.select("text")
+                    .style("fill-opacity", 1);
+
+                // Transition exiting nodes to the parent's new position.
+                var nodeExit = node.exit().transition()
+                    .duration(duration)
+                    .attr("transform", function(d) {
+                        return "translate(" + source.y + "," + source.x + ")";
+                    })
+                    .remove();
+
+                nodeExit.select("circle")
+                    .attr("r", 0);
+
+                nodeExit.select("text")
+                    .style("fill-opacity", 0);
+
+                // Update the links…
+                var link = svgGroup.selectAll("path.link")
+                    .data(links, function(d) {
+                        return d.target.id;
+                    });
+
+
+                // Enter any new links at the parent's previous position.
+                link.enter().insert("path", "g")
+                    .attr("class", "link")
+                    .attr("d", function(d) {
+                        var o = {
+                            x: source.x0,
+                            y: source.y0
+                        };
+                        return diagonal({
+                            source: o,
+                            target: o
+                        });
+                    });
+
+                // Transition links to their new position.
+                link.transition()
+                    .duration(duration)
+                    .attr("d", diagonal);
+
+                // Change the circle fill depending on whether it has children and is collapsed
+
+
+                // Transition exiting nodes to the parent's new position.
+                link.exit().transition()
+                    .duration(duration)
+                    .attr("d", function(d) {
+                        var o = {
+                            x: source.x,
+                            y: source.y
+                        };
+                        return diagonal({
+                            source: o,
+                            target: o
+                        });
+                    })
+                    .remove();
+
+                // Stash the old positions for transition.
+                nodes.forEach(function(d) {
+                    d.x0 = d.x;
+                    d.y0 = d.y;
+                });
+            }
+
+            // Append a group which holds all nodes and which the zoom Listener can act upon.
+            var svgGroup = baseSvg.append("g");
+
+            // Define the root
+            root = treeData;
+            root.x0 = viewerHeight / 2;
+            root.y0 = 0;
+
+            // Layout the tree initially and center on the root node.
+            update(root);
+            centerNode(root);
+        });
+
     });
-      
+
+
+
+
+
+
+
     </script>
+
 
      <style>
 
@@ -195,108 +889,82 @@
 
          html, body{height:100%;  }
          body{
-            background-color: #F7F7F7;
-            font-family: "Nanum Gothic", sans-serif;
+              font-weight: bold;
+            /*font-family: "Nanum Gothic", sans-serif;*/
          }
 
-         .col1{
-            display: table-cell;
-            min-width: 200px; max-width: 202px;
-            height:98%;  border-right: 2px solid #D8D8D8 
-         }
-
-         .col2{
-            margin-top: 10%;
-            display: table-cell;
-         }
-
-         .col3{
-            width:10px;
-            display: table-cell;
-         }
-
-        .btn.sharp {
-          border-radius:0;
+        .image {
+         position:relative;
         }
 
-        .result{
-          margin-left: 20px;
-          padding-top: 10px;
-          padding-bottom: 15px;
-          padding-right: 40px;
-          padding-left: 40px;
-          background-color:#ffffff;
-
+        .image .text {
+         position: absolute;
+         top:70%;
+         left:50%;
+         transform: translate(-50%, -50%);
+         font-size:5rem;
+         color: white;
+         z-index: 2;
+         text-align: center;
         }
-
-        .table_style{
-          margin-top:10px; 
-          margin-right:30px; 
-          font-size:15px; 
-          text-align:right
-        }
-
-        .showcode{
-      font-size:15; 
-      display: inline-block; 
-      background: #ffffff; 
-      border: 0px;
-    }
-
 
      </style>
 
 
- </head> 
+ </head>
 
- <body >
+ <body>
 
-     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-        <a  style="font-size: 25px;" class="navbar-brand" href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LEECH</a>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-            </li>
-        </ul>
-    </nav>
+    <div id="wrapper">
+      <header id="header">
+        <h1 style="font-size: 50px;"> LEECH</h1>
+      </header>
 
-    <div class="container-fluid" style="width: 100%; height:100%; display:table">
-        <div class="col1" ></div>
-        <div class="col3"></div>
-        <div class="col2">
-          <div class="container p-y-1">
+      <br><br>
+
+      <section id="main">
+
           <form id="uploadform" method="post">
-          <input name="file" type="file">
-          <br>
-          <button id="file_submit" type="button">submit</button>
-          </form>
-          
+            <input name="file" type="file" style="color:#000000; background-color: #ffffff; opacity:0.7;" >
+            <br><br>
+            <label  style="display:inline-block;">TOKEN</label>
+            <select name="token" style="width:200px; margin:10px; display:inline-block;">
+              <option value="rich">RICH</option>
+              <option value="medium">MEDIUM</option>
+              <option value="small">SMALL</option>
+            </select>
 
+            <label style="margin-left: 15px; display:inline-block;">ADAPTIVE</label>
+            <select name="adaptive" style="width:200px; margin:10px;display:inline-block;">
+              <option value="on">ON</option>
+              <option value="off">OFF</option>
+            </select>
+
+            <button id="file_submit" type="button" style="background-color: #9F81F7; margin:20px; display:inline-block;  color:#ffffff">RUN</button>
+
+          </form>
 
           <br><br>
 
-              <div class="btn-group btn-lg">
-
-              <button type="button" id="result_btn" class="btn btn-default sharp">소스코드</button>
+            <div class="btn-group btn-lg">
+              <div class="buttonclass" id="buttonclass">
+<!--               <button type="button" id="result_btn" class="btn btn-default sharp">결과</button>
               <button type="button" id="pla_btn" class="btn btn-default sharp">유사도</button>
-              <button type="button" id="graph_bnt" class="btn btn-default sharp">그래프</button>
+              <button type="button" id="graph_bnt" class="btn btn-default sharp">그래프</button> -->
               </div>
+            </div>
 
-          </div>
-
-  <div class="result" id ="div2">
 
         <div class="re" id="div1">
         </div>
-  <div>
 
+      </section>
 
-
-        </div>
-
+      <footer id="footer">
+        <p>달려라 한이</p>
+      </footer>
     </div>
 
-   
+
  </body>
 </html>
-

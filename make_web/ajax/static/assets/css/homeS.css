@@ -1,0 +1,88 @@
+
+         html, body{height:100%;  }
+         body{
+              font-weight: bold;
+            /*font-family: "Nanum Gothic", sans-serif;*/
+         }
+
+
+        .btn.sharp {
+          border-radius:0;
+        }
+
+        .re{
+          margin-left: 20px;
+          padding-top: 10px;
+          padding-bottom: 15px;
+          padding-right: 40px;
+          padding-left: 40px;
+/*          background-color:#ffffff;*/
+/*          opacity: 0.3;*/
+
+        }
+
+        .table_style{
+          margin-top:10px; 
+          margin-right:30px; 
+          font-size:15px; 
+          text-align:right
+        }
+
+        .showcode{
+          font-size:15; 
+          display: inline-block; 
+          background: #ffffff; 
+          border: 0px;
+        }
+
+        input[type='file']::-webkit-file-upload-button
+        {
+          padding: 3px 7px;
+          color:black;
+          font-size:15px;
+          border-radius:3px;
+          background-color: #F2F2F2;
+          border: none;
+        }
+
+
+
+       .node {
+        cursor: pointer;
+      }
+
+      .overlay{
+          background-color:transparent;
+         
+      }
+       
+      .node circle {
+        fill: #fff;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+      }
+       
+      .node text {
+        font-size:10px; 
+        font-family:sans-serif;
+       }
+       
+      .link {
+        fill: none;
+        stroke: #ccc;
+        stroke-width: 1.5px;
+      }
+
+      .templink {
+        fill: none;
+        stroke: red;
+        stroke-width: 3px;
+      }
+
+      .ghostCircle.show{
+          display:block;
+      }
+
+      .ghostCircle, .activeDrag .ghostCircle{
+           display: none;
+      }

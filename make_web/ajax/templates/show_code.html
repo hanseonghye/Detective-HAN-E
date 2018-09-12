@@ -26,8 +26,10 @@
 	</style>
 
 	<head>
-		<script type="text/javascript" src="{{url_for('static', filename='scripts/scripts2/shCore.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='scripts/scripts2/shBrushCpp.js')}}"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta charset="UTF-8" />
+		<script charset='euc-kr' type="text/javascript" src="{{url_for('static', filename='scripts/scripts2/shCore.js')}}"></script>
+		<script charset='euc-kr' type="text/javascript" src="{{url_for('static', filename='scripts/scripts2/shBrushCpp.js')}}"></script>
 
 		<link href="{{url_for('static', filename='scripts/styles/shCore.css')}}"  rel="stylesheet" type="text/css" />
 		<link href="{{url_for('static', filename='scripts/styles/shThemeDefault.css')}}" "scripts/shThemeDefault.css" rel="stylesheet" type="text/css" />
@@ -47,7 +49,7 @@
 			{{File1_name}}{{File1}}
 			</pre>
 		<div>
-		
+
 		<div class="split right">
 			<pre class="brush: c">
 			{{File2_name}}{{File2}}

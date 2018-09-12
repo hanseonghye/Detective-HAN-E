@@ -11,7 +11,7 @@ def is_cppsrc(srcname):
     return (REGEX.match(srcname) != None)
 
 
-def get_result(test_dir):
+def get_result(test_dir, lcs_mode):
     TEST_dir=test_dir
     print('preprocessing...')
 
@@ -57,7 +57,13 @@ def get_result(test_dir):
             continue
 
         str1=i[0]
-        mother_score[i[1]]=comparator.match_score_local(str1,str1)
+        mother_score[i[1]]=0;
+
+        if lcs_mode == 0:
+            mother_score[i[1]]=comparator.match_score_A(str1,str1)
+        else :
+            mother_score[i[1]]=comparator.match_score_NA(str1,str1)
+
 
         ext=i[1].split('.')
         ext=ext[1]
@@ -93,14 +99,25 @@ def get_result(test_dir):
 
         str1=re.sub('#ID','',a[0])
         str2=re.sub('#ID','',b[0])
+
+        score1=0;
+        score2=0;
+
+        if lcs_mode==0:
+            score1=float(comparator.match_score_A(str1,str2))/float(mother_score[a[1]])
+            score2=float(comparator.match_score_A(str2,str1))/float(mother_score[b[1]])
+        else:
+            score1=float(comparator.match_score_NA(str1,str2))/float(mother_score[a[1]])
+            score2=float(comparator.match_score_NA(str2,str1))/float(mother_score[b[1]])
+
         
-        score1=float(comparator.match_score_local(str1,str2))/float(mother_score[a[1]])
+        # score1=float(comparator.match_score_local(str1,str2))/float(mother_score[a[1]])
         score1=score1*100
-        score2=float(comparator.match_score_local(str2,str1))/float(mother_score[b[1]])
+        # score2=float(comparator.match_score_local(str2,str1))/float(mother_score[b[1]])
         score2=score2*100
         score=max(score1,score2)
 
-        if score >20.0:
+        if score >50.0:
             score=format(score,".4f")
             scores.append((score,a,b))
 

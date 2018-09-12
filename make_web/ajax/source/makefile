@@ -1,5 +1,5 @@
-all: lex_C lex_JAVA re_pro lcs_pro
-RM = lex_C lex_JAVA lex_C.c lex_JAVA.c re_pro lcs_pro
+all: lex_C lex_JAVA re_pro Alcs_pro nAlcs_pro
+RM = lex_C lex_JAVA lex_C.c lex_JAVA.c re_pro Alcs_pro nAlcs_pro
 CC  = gcc
 LEX = lex
 CPP = g++
@@ -19,8 +19,12 @@ lex_JAVA.c: JAVAtoken.l
 re_pro: pro1.cpp
 	$(CPP) -g -o $@ $<
 
-lcs_pro: lcs.cpp
+Alcs_pro: lcs.cpp
 	$(CPP) -g -o $@ $<
+
+nAlcs_pro: lcs_notA.cpp
+	$(CPP) -g -o $@ $<
+
 
 clean:
 	rm $(RM)

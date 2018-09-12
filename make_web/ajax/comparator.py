@@ -9,6 +9,15 @@ def match_score_local(a,b):
     #print data
     return int(data)
 
+def match_score_A(a,b):
+    data=subprocess.check_output(('./source/Alcs_pro',a,b))
+    #print data
+    return int(data)
+
+def match_score_NA(a,b):
+    data=subprocess.check_output(('./source/nAlcs_pro',a,b))
+    #print data
+    return int(data)
 
 def get_sequence_from(filename):
     #print('get sequence from ' + filename + '...')
