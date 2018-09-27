@@ -1,183 +1,137 @@
 function DrawGraph2(G_result){
 
-var width =  $(document).width(),
-  height =  $(document).height();
-
-var tree = d3.layout.tree()
-  .size([height-100,width-100]); //이 부분 추가
+  var margin = {top: 20, right: 120, bottom: 20, left: 200};
+    var width = 950 - margin.right - margin.left;
+    var height = 800 - margin.top - margin.bottom;
 
 
-var diagonal = d3.svg.diagonal()
-  .projection(function (d) {
-      return [d.y, d.x];
-  });
-
-var svg = d3.select("#div1").append("svg")
-.attr("width", 1280)
-  .attr("height", 1280)
-  .append("g")
-.attr("class", "overlay")
-.attr("transform", "rotate(90,400,400)"); //이 부분 추가
-
-var root = getData(),
-  nodes = tree.nodes(root),
-  links = tree.links(nodes);
-
-var link = svg.selectAll(".link")
-  .data(links)
-  .enter()
-  .append("g")
-  .attr("class", "link");
-
-link.append("path")
-  .attr("fill", "none")
-  .style("stroke", function(d) {
-   if (d.target.rule == undefined) return "none";
-   else if (d.target.rule >= 85) return "#EB0000";
-   else if (d.target.rule >= 60) return "#FFBEBE";
-   else return "#FAC87D";})
-
-  .attr("stroke-width", "3px")
-  .attr("d", diagonal);
-
-link.append("text")
-  .attr("font-family", "Arial, Helvetica, sans-serif")
-  .attr("fill", "Black")
-  .style("font", "normal 18px Arial")
-
-  .attr("transform", function(d) {
-      return "translate(" +
-          ((d.source.y + d.target.y)/2) + "," +
-          ((d.source.x + d.target.x)/2) + ")";
-  })
-  .attr("dy", ".50em")
-  .attr("text-anchor", "middle")
-  .text(function(d) {
-      console.log(d.target.rule);
-       return  d.target.rule;
-  });
+     var tree = d3.layout.tree()
+         .size([height,width]);
 
 
-var node = svg.selectAll(".node")
-  .data(nodes)
-  .enter()
-  .append("g")
-  .attr("class", "node")
-  .attr("transform", function (d) {
-      return "translate(" + d.y + "," + d.x + ")";
-  });
+      /// 이 부분 새로
+     var diagonal = d3.svg.diagonal()
+         .projection(function (d) {
+             return [d.y*2, d.x];
+         });
 
-node.append("circle")
-  .attr("r", function(d){
-   if (d.name == null) return 0;
-   else return 4.5;
-});
+    /// 이 부분 새로
+     var svg = d3.select("#div1").append("svg")
+     .attr('width', 1280)
+     .attr('height',1280)
+     .append("g")
+     .attr("class", "overlay")
+     .attr("transform", "rotate(90,600,250)");
 
-node.append("text")
-  .attr("dx", function(d){
-   return d.children ? 8:-8;
-})//이 부분 추가
-  .attr("dy", "20")
-  .style("text-anchor", function (d) {
-      return d.children ? "end" : "start";
-  })
-  .text(function (d) {
-   return  d.name;
 
-  });
+     var root = G_result,
+         nodes = tree.nodes(root).reverse(),
+         links = tree.links(nodes);
+
+     var link = svg.selectAll(".link")
+         .data(links)
+         .enter()
+         .append("g")
+         .attr("class", "link");
+
+     link.append("path")
+         .attr("fill", "none")
+         .style("stroke", function(d) {
+          if (d.target.rule == undefined) return "none";
+          else if (d.target.rule >= 85) return "#EB0000";
+          else if (d.target.rule >= 60) return "#FFBEBE";
+          else return "#FAC87D";})
+         .attr("stroke-width", "3px")
+         .attr("d", diagonal);
 
 
 
-function getData() {
-  return {
-"children": [
-{
-   "name": "A",
-   "children": [
-      {
-         "name": "A-1",
-         "rule": "86.72",
-         "children": [
-            {
-               "name" : "A-1-1",
-               "rule" : "56.24",
-               "children":[]
-            }
-         ]
-      },
-      {
-         "name": "A-2",
-         "rule": "69.63",
-         "children": [
-            {
-               "name" : "A-2-1",
-               "rule" : "24.33",
-               "children":[]
-            }
-         ]
-      }
-      ,
-      {
-         "name" : "A-3",
-         "rule" : "66.38",
-         "children":[]
-      }
-   ]
-},
-{
-   "name": "B",
-   "children": [
-      {
-         "name": "B-1",
-         "rule": "93.79",
-         "children": [
-            {
-               "name" : "B-1-1",
-               "rule" : "37.22",
-               "children":[]
-            }
-         ]
-      },
-      {
-         "name": "B-2",
-         "rule": "80.75",
-         "children": []
-      }
-   ]
-},
-{
-   "name": "G",
-   "children": [
-      {
-         "name": "K",
-         "rule": "22.20",
-         "children": []
-      }
-   ]
-},
-{
-   "name": "A-3",
-   "children": [
-      {
-         "name": "A-3-1",
-         "rule": "92.21",
-         "children": [
-            {
-               "name": "A-3-2",
-               "rule": "92.21"
-            },
-            {
-               "name" : "A-3-3",
-               "rule" : "37.22",
-               "children":[]
-            }
-         ]
-      }
-   ]
-}
-]
-  };
-};
+    /// 이 부분 새로
+     link.append("text")
+         .style("font", "20px sans-serif")
+         .style("fill", "black")
+           .style("stroke","none")
+         .attr("transform", function(d) {
+             return "translate(" +
+                 ((d.source.y + d.target.y) + 30) + "," +
+                 ((d.source.x + d.target.x)/2) + ")";
+         })
+         .attr("dy", ".30em")
+         .attr("text-anchor", "middle")
+         .text(function(d) {
+             console.log(d.target.rule);
+              return  d.target.rule;
+         });
+
+    /// 이 부분 새로
+     var node = svg.selectAll(".node")
+         .data(nodes)
+         .enter()
+         .append("g")
+         .attr("class", "node")
+         .attr("transform", function (d) {
+             return "translate(" + d.y *2+ "," + d.x + ")";
+         })
+         .on("mouseover", function(d) {
+          var g = d3.select(this); // The node
+          // The class is used to remove the additional text later
+          var info = g.append('text')
+             .classed('info', true)
+             .attr('x', 0)
+             .attr('y', -10)
+	.style("font", "20px sans-serif")        
+	.style("text-anchor", "middle" )
+	.call(wrap, 150)
+             .text(function (d) {
+		return  d.name;
+	});
+      })
+      .on("mouseout", function() {
+          // Remove the info text on mouse out.
+          d3.select(this).select('text.info').remove()
+        });
+    ;
+
+     node.append("circle")
+         .attr("r", function(d){
+          if (d.name == null) return 0;
+          else return 4.5;
+       });
+
+    /// 이 부분 새로
+ function wrap(text, width) {
+     text.each(function () {
+         var text = d3.select(this),
+             words = text.text().split("").reverse(),
+             word,
+             line = [],
+             lineNumber = 0,
+             lineHeight = 1.1, // ems
+             x = text.attr('dx'),
+             y = text.attr('y'),
+             dy = 0, //parseFloat(text.attr('dy')),
+             tspan = text.text(null)
+                 .append('tspan')
+                 .attr('x', x)
+                 .attr('y', y-10)
+                 .attr('dy', dy + 'em');
+         while (word = words.pop()) {
+             line.push(word);
+             tspan.text(line.join(''));
+             if (tspan.node().getComputedTextLength() > width) {
+                 line.pop();
+                 tspan.text(line.join(''));
+                 line = [word];
+                 tspan = text.append('tspan')
+                     .attr('x', x)
+                     .attr('y', y)
+                .attr('dy', lineHeight + dy + 'em')
+                .text(word);
+             }
+         }
+     });
+   }
+
 
    //  var treeData=G_result;
    //  var width = 400,
