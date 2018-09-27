@@ -6,7 +6,7 @@ import json
 import math
 
 
-REGEX = re.compile('.*[.](c|cpp|java)$')
+REGEX = re.compile('.*[.](c|cpp|java|py)$')
 def is_cppsrc(srcname):
     return (REGEX.match(srcname) != None)
 
@@ -46,6 +46,23 @@ def get_result(test_dir, lcs_mode):
     mtc=""
 
     for i in seq_name_pairs:
+
+        ext=i[1].split('.')
+        ext=ext[1]
+
+        if ext == "c" :
+            NofC+=1
+        elif ext == "cpp" :
+            NofCPP+=1
+        elif ext == "java" :
+            NofJAVA+=1
+        # elif ext == "py" :
+        #     NofPY+=1
+        else :
+            error_dna.append(i[1])
+            Nofelse+=1
+            continue
+
         token_count=i[0].count('#');
 
         if mtc_N < token_count :
@@ -64,22 +81,6 @@ def get_result(test_dir, lcs_mode):
         else :
             mother_score[i[1]]=comparator.match_score_NA(str1,str1)
 
-
-        ext=i[1].split('.')
-        ext=ext[1]
-
-        if ext == "c" :
-            NofC+=1
-        elif ext == "cpp" :
-            NofCPP+=1
-        elif ext == "java" :
-            NofJAVA+=1
-        # elif ext == "py" :
-        #     NofPY+=1
-        else :
-            error_dna.append(i[1])
-            Nofelse+=1
-            continue
 
         name_map[i[1]]=i[1]
         re_node={"name":name_map[i[1]]}

@@ -5,7 +5,7 @@ function drawBarG(d){
       barHeight        = 35,
       groupHeight      = barHeight * data.series.length,
       gapBetweenGroups = 10,
-      spaceForLabels   = 150,
+      spaceForLabels   = 400,
       spaceForLegend   = 150;
 
   // Zip the series data together (first values, second values, etc.)
@@ -49,9 +49,9 @@ function drawBarG(d){
   //Create rectangles of the correct width
   bar.append("rect")
       .attr("fill", function(d,i) {
-          if ( data.series[0].values[i] >= 85 ) return "#3A01DF";
-          else if ( data.series[0].values[i] >=60 ) return "#5858FA";
-          return "#A9A9F5"
+          if ( data.series[0].values[i] >= 85 ) return "#FE2E2E";
+          else if ( data.series[0].values[i] >=60 ) return "#FD7442";
+          return "#FFC170"
         })// return color(i % data.series.length); })
       .attr("class", "bar")
       .attr("width", x)
