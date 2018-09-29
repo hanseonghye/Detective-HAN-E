@@ -1,12 +1,14 @@
 <!DOCTYPE html>
- <html lang="en">
+<html lang="en">
 
- <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/assets/css/main.css" />
-    <link rel="stylesheet" href="static/assets/css/homeS.css">
-    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css'>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="stylesheet" href="static/assets/css/main.css"/>
+    <link rel="stylesheet" href="static/assets/css/homeS.css"/>
+    <link rel='stylesheet prefetch'
+          href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -21,166 +23,164 @@
 
     <script>
 
-      var dir="";
-      var Time;
-      var vaild_code, invaild_code, pro_result, G_result , Re, G_result2;
-      var max_token, max_token_line
+        var dir = "";
+        var Time;
+        var vaild_code, invaild_code, pro_result, G_result, Re, G_result2;
+        var max_token, max_token_line
 
-      $(function(){
+        $(function () {
 
-        $('#file_submit').click(function(event){
-          event.preventDefault();
-          var formData =new FormData($('#uploadform')[0]);
-          $.ajax({
-            type:'POST',
-            url:'/fileUpload',
-            data:formData,
-            contentType:false,
-            processData:false,
-            dataType:'json',
-            success: function(response){
+            $('#file_submit').click(function (event) {
+                event.preventDefault();
+                var formData = new FormData($('#uploadform')[0]);
+                $.ajax({
+                    type: 'POST',
+                    url: '/fileUpload',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: function (response) {
 
-              pro_result=response.pr;
-              Time=response.Time;
-              Re=response.re_lang;
-              G_result=response.G_data;
-              G_result2=response.G_data2;
+                        pro_result = response.pr;
+                        Time = response.Time;
+                        Re = response.re_lang;
+                        G_result = response.G_data;
+                        G_result2 = response.G_data2;
 
-              max_token=response.maxTokenCode
-              max_token_line=response.maxToken
-              console.log(Time)
+                        max_token = response.maxTokenCode
+                        max_token_line = response.maxToken
+                        console.log(Time)
 
-              invaild_code=response.er;
-              dir=response.dire;
+                        invaild_code = response.er;
+                        dir = response.dire;
 
-              $('.buttonclass').empty();
+                        $('.buttonclass').empty();
 
-              var button_html=`
-                   <button type="button" id="result_btn"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px;  background-color: #9F81F7; color:#ffffff">결과</button>
-                  <button type="button" id="pla_btn"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px; background-color: #9F81F7; color:#ffffff">유사도</button>
-                  <button type="button" id="graph_bnt"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px;  background-color: #9F81F7; color:#ffffff">그래프</button>`;
+                        var button_html = `
+                   <button type="button" id="result_btn"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px;  background-color: #080A8A; color:#ffffff">결과</button>
+                  <button type="button" id="pla_btn"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px; background-color: #080A8A; color:#ffffff">유사도</button>
+                  <button type="button" id="graph_bnt"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px;  background-color: #080A8A; color:#ffffff">그래프</button>`;
 
-                  $('.buttonclass').append(button_html);
-                  $('.re').empty();
-                  var html=ShowResult(Re, max_token, max_token_line, invaild_code);
-                  $('.re').append(html);
-
-           },
-            error: function(jqXHR, testStatus, errorThrown){
-              console.log("error")
-            }
-          });
-
-        });  // end of file submit
+                        $('.buttonclass').append(button_html);
+                        $('.re').empty();
+                        document.getElementById("div1").style.backgroundColor = "rgba(255,255,255,0.3)";
+                        var html = ShowResult(Re, max_token, max_token_line, invaild_code);
+                        $('.re').append(html);
 
 
-        $('#div1').on('click','#show_one_code',function(event){
-          event.preventDefault();
-          var file1=$(this).val();
-          var where_dir=dir;
-          window.open('show_one_code?file1='+file1+'&where_dir='+where_dir,'__blank');
+                    },
+                    error: function (jqXHR, testStatus, errorThrown) {
+                        console.log("error")
+                    }
+                });
+
+            });  // end of file submit
+
+
+            $('#div1').on('click', '#show_one_code', function (event) {
+                event.preventDefault();
+                var file1 = $(this).val();
+                var where_dir = dir;
+                window.open('show_one_code?file1=' + file1 + '&where_dir=' + where_dir, '__blank');
+
+            });
+
+
+            $('#div1').on('click', '#score', function (event) {
+                event.preventDefault();
+                var $td = $(this).closest('tr').children('td');
+                var file1 = $td.eq(1).text();
+                var file2 = $td.eq(3).text();
+                var where_dir = dir;
+                window.open('show_code?file1=' + file1 + '&file2=' + file2 + '&where_dir=' + where_dir, '_blank');
+            });
+
+            $('#buttonclass').on('click', '#result_btn', function () {
+                $('.re').empty();
+                var html = ShowResult(Re, max_token, max_token_line, invaild_code);
+                $('.re').append(html);
+            });
+
+
+            $('#buttonclass').on('click', '#pla_btn', function (event) {
+                event.preventDefault();
+                $('.re').empty();
+                var html = `<svg class="chart"></svg>`;
+                $('.re').append(html);
+                drawBarG(G_result2);
+            });
+
+
+            $('#buttonclass').on('click', '#graph_bnt', function (event) {
+
+                event.preventDefault();
+                $('.re').empty();
+                DrawGraph2(G_result);
+            });
 
         });
-
-
-        $('#div1').on('click','#score',function(event){
-          event.preventDefault();
-          var $td= $(this).closest('tr').children('td');
-          var file1= $td.eq(1).text();
-          var  file2= $td.eq(3).text();
-          var where_dir=dir;
-          window.open('show_code?file1='+file1+'&file2='+file2+'&where_dir='+where_dir, '_blank');
-        });
-
-        $('#buttonclass').on('click','#result_btn',function(){
-              $('.re').empty();
-              var html= ShowResult(Re, max_token, max_token_line, invaild_code);
-              $('.re').append(html);
-        });
-
-
-
-      $('#buttonclass').on('click','#pla_btn',function(event){
-          event.preventDefault();
-          $('.re').empty();
-          var html=`<svg class="chart"></svg>`;
-          $('.re').append(html);
-          drawBarG(G_result2);
-      });
-
-
-
-      $('#buttonclass').on('click','#graph_bnt',function(event){
-
-            event.preventDefault();
-            $('.re').empty();
-            DrawGraph2(G_result);
-        });
-
-    });
-
-
-
-
-
 
 
     </script>
 
 
-     <style>
+    <style>
 
         @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-         html, body{height:100%;  }
-         body{
-              font-weight: bold;
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-weight: bold;
             /*font-family: "Nanum Gothic", sans-serif;*/
-         }
+        }
 
         .image {
-         position:relative;
+            position: relative;
         }
 
         .image .text {
-         position: absolute;
-         top:70%;
-         left:50%;
-         transform: translate(-50%, -50%);
-         font-size:5rem;
-         color: white;
-         z-index: 2;
-         text-align: center;
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            color: white;
+            z-index: 2;
+            text-align: center;
         }
 
         .chart .legend {
-          fill: black;
-          font: 14px sans-serif;
-          text-anchor: start;
-          font-size: 12px;
+            fill: black;
+            font: 14px sans-serif;
+            text-anchor: start;
+            font-size: 12px;
         }
 
         .chart text {
-          fill: white;
-          font: 10px sans-serif;
-          text-anchor: end;
+            fill: white;
+            font: 10px sans-serif;
+            text-anchor: end;
         }
 
         .chart .label {
-          fill: black;
-          font: 14px sans-serif;
-          text-anchor: end;
+            fill: black;
+            font: 14px sans-serif;
+            text-anchor: end;
         }
 
         .bar:hover {
-          fill: brown;
+            fill: brown;
         }
 
         .axis path,
         .axis line {
-          fill: none;
-          stroke: #000;
-          shape-rendering: crispEdges;
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
         }
 
         .node circle {
@@ -188,66 +188,98 @@
             stroke: #F06E6E;
             stroke-width: 0.1px;
         }
-        .node text {
-          font: 15px sans-serif;
-          transform: rotate(-90deg); //이 부분 추가
 
+        .node text {
+            width: 20px;
+            font: 15px sans-serif;
+            display: block;
+            transform: rotate(-90deg);
         }
 
-     </style>
+.node {
+	cursor: pointer;
+}
+.tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+
+	/* Position the tooltip text - see examples below! */
+	position: absolute;
+	z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}
+
+    </style>
 
 
- </head>
+</head>
 
- <body>
+<body>
 
-    <div id="wrapper">
-      <header id="header">
-        <h1 style="font-size: 40px;">명탐정 한이</h1>
-      </header>
+<div id="wrapper">
+    <header id="header">
+        <img src="static/images/logo.png" style="height: 150px; width: auto;">
+        <!--<h1 style="font-size: 40px;">명탐정 한이</h1>-->
+    </header>
 
-      <br><br>
+    <br><br>
 
-      <section id="main">
+    <section id="main">
 
-          <form id="uploadform" method="post">
-            <input name="file" type="file" style="color:#000000; background-color: #ffffff; opacity:0.7;" >
+        <form id="uploadform" method="post">
+            <input name="file" type="file" style="color:#000000; background-color: #ffffff; opacity:0.8;">
             <br><br>
-            <label  style="display:inline-block;">TOKEN</label>
-            <select name="token" style="width:200px; margin:10px; display:inline-block;">
-              <option value="rich">RICH</option>
-              <option value="medium">MEDIUM</option>
-              <option value="small">SMALL</option>
+            <label style="display:inline-block;">TOKEN</label>
+            <select name="token" style="width:200px; margin:10px; background-color: #ffffff; opacity: 0.8; display:inline-block;">
+                <option value="rich">RICH</option>
+                <option value="small">SMALL</option>
             </select>
 
             <label style="margin-left: 15px; display:inline-block;">ADAPTIVE</label>
-            <select name="adaptive" style="width:200px; margin:10px;display:inline-block;">
-              <option value="on">ON</option>
-              <option value="off">OFF</option>
+            <select name="adaptive" style="width:200px; margin:10px; background-color: #ffffff; opacity: 0.8; display:inline-block;">
+                <option value="on">ON</option>
+                <option value="off">OFF</option>
             </select>
 
-            <button id="file_submit" type="button" style="background-color: #9F81F7; margin:20px; display:inline-block;  color:#ffffff">RUN</button>
+            <button id="file_submit" type="button"
+                    style="background-color: #080A8A; margin:20px; display:inline-block;  color:#ffffff">RUN
+            </button>
 
-          </form>
+        </form>
 
-          <br><br>
+        <br><br>
 
-            <div class="btn-group btn-lg">
-              <div class="buttonclass" id="buttonclass">
-              </div>
+        <div class="btn-group btn-lg">
+            <div class="buttonclass" id="buttonclass">
             </div>
+        </div>
 
 
         <div class="re" id="div1">
         </div>
 
-      </section>
+    </section>
 
-      <footer id="footer">
+    <footer id="footer">
         <p>달려라 한이</p>
-      </footer>
-    </div>
+    </footer>
+</div>
 
 
- </body>
+</body>
 </html>

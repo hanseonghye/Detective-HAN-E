@@ -28,13 +28,14 @@ handler.setFormatter(
 )
 app.logger.addHandler(handler)
 
-
-app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-
 Adaptive={"on":0,"off":1}
 
 @app.route('/')
 def index():
+    return render_template('start.html')
+
+@app.route('/start')
+def start():
     return render_template('home.html')
 
 @app.route('/fileUpload', methods=['POST'])
@@ -74,7 +75,7 @@ def fileUpload():
             ]
 
         for i in try_jsonData :
-            change_json["labels"].append(i["source"]+","+i["target"])
+            change_json["labels"].append(str(i["source"]+" : "+i["target"]))
             change_json["series"][0]["values"].append(i["weight"])
 
         endTime=time.time()-startTime

@@ -59,7 +59,6 @@ function DrawGraph2(G_result){
          .attr("dy", ".30em")
          .attr("text-anchor", "middle")
          .text(function(d) {
-             console.log(d.target.rule);
               return  d.target.rule;
          });
 
@@ -234,7 +233,6 @@ function DrawGraph2(G_result){
 function click(d) {
    if (d3.event.defaultPrevented) return; // click suppressed
    var where_dir=dir;
-   console.log("click")
 
    if (d.target.rule != undefined){
       file1 = d.target.name;

@@ -2,11 +2,12 @@ function drawBarG(d){
 
   var data = d;
   var chartWidth       = 400,
-      barHeight        = 35,
+      barHeight        = 40,
       groupHeight      = barHeight * data.series.length,
       gapBetweenGroups = 10,
-      spaceForLabels   = 400,
+      spaceForLabels   = 7*(data.labels[0].length),
       spaceForLegend   = 150;
+
 
   // Zip the series data together (first values, second values, etc.)
   var zippedData = [];
@@ -73,7 +74,7 @@ function drawBarG(d){
   // Add text label in bar
   bar.append("text")
       .attr("x", function(d) { return x(d) - 3; })
-      .attr("y", barHeight / 2)
+      .attr("y", barHeight / 2+5)
       .attr("fill", "red")
       .attr("dy", ".35em")
       .text(function(d) { return d; });
