@@ -5,7 +5,7 @@ function drawBarG(d){
       barHeight        = 40,
       groupHeight      = barHeight * data.series.length,
       gapBetweenGroups = 10,
-      spaceForLabels   = 7*(data.labels[0].length),
+      spaceForLabels   = 10*(data.labels[0].length),
       spaceForLegend   = 150;
 
 
@@ -59,9 +59,12 @@ function drawBarG(d){
       .attr("height", barHeight - 1)
       .on("click",function(d,i){
           var click=data.labels[i];
-          var click_bar=click.split(',');
-          var file1=click_bar[0]
-          var file2=click_bar[1]
+          var click_bar=click.split(':');
+          var file=click_bar[0]
+          var file1=file.substring(0, file.length-1);
+          file=click_bar[1]
+          var file2=file.substring(1);
+
           var where_dir=dir
 
           window.open('show_code?file1='+file1+'&file2='+file2+'&where_dir='+where_dir, '_blank');
@@ -74,7 +77,7 @@ function drawBarG(d){
   // Add text label in bar
   bar.append("text")
       .attr("x", function(d) { return x(d) - 3; })
-      .attr("y", barHeight / 2+5)
+      .attr("y", barHeight / 2)
       .attr("fill", "red")
       .attr("dy", ".35em")
       .text(function(d) { return d; });

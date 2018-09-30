@@ -5,30 +5,27 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app2.py" beforeDir="false" afterPath="$PROJECT_DIR$/app2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/comparator.py" beforeDir="false" afterPath="$PROJECT_DIR$/comparator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plagiarism.py" beforeDir="false" afterPath="$PROJECT_DIR$/plagiarism.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/Ctoken.l" beforeDir="false" afterPath="$PROJECT_DIR$/source/CtokenS.l" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/Ctoken_H.l" beforeDir="false" afterPath="$PROJECT_DIR$/source/CtokenR.l" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/JAVAtoken.l" beforeDir="false" afterPath="$PROJECT_DIR$/source/JAVAtokenR.l" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/fibo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/fibo.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/lcs_cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/lex_C" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/lex_C.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/lex_JAVA" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/lex_JAVA.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/makefile" beforeDir="false" afterPath="$PROJECT_DIR$/source/makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/makefile (copy)" beforeDir="false" afterPath="$PROJECT_DIR$/source/makefile (copy)" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/nAlcs_pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/re_pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/text.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/assets/css/homeS.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/assets/css/homeS.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/assets/js/DrawGraph1.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/assets/js/DrawGraph1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/assets/js/DrawGraph2.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/assets/js/DrawGraph2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/get_graph.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/8441648.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/bg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/bg.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/bg2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/cruise.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/fulls/01.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/fulls/02.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/fulls/03.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/fulls/04.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/fulls/05.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/fulls/06.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/fulls/07.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/thumbs/01.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/thumbs/02.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/thumbs/03.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/thumbs/04.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/thumbs/05.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/thumbs/06.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/thumbs/07.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/words.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/assets/js/updateResult.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/assets/js/updateResult.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/start.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../보고서/최종보고서.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../보고서/최종보고서.docx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -43,38 +40,55 @@
     <session id="-633639914">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="7" />
+          <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="96" />
-          <entry key="Python" value="18" />
+          <entry key="CSS" value="2" />
+          <entry key="HTML" value="703" />
+          <entry key="JavaScript" value="367" />
+          <entry key="PLAIN_TEXT" value="323" />
+          <entry key="Python" value="192" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="js" value="2" />
-          <entry key="py" value="1" />
+          <entry key="css" value="2" />
+          <entry key="html" value="8" />
+          <entry key="js" value="18" />
+          <entry key="l" value="11" />
+          <entry key="makefile" value="2" />
+          <entry key="makefile (copy)" value="3" />
+          <entry key="py" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="96" />
-          <entry key="py" value="18" />
+          <entry key="css" value="2" />
+          <entry key="html" value="698" />
+          <entry key="js" value="372" />
+          <entry key="l" value="229" />
+          <entry key="makefile" value="94" />
+          <entry key="py" value="192" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JavaScript" value="2" />
-          <entry key="Python" value="1" />
+          <entry key="CSS" value="2" />
+          <entry key="HTML" value="8" />
+          <entry key="JavaScript" value="18" />
+          <entry key="PLAIN_TEXT" value="16" />
+          <entry key="Python" value="5" />
         </counts>
       </usages-collector>
     </session>
@@ -84,29 +98,70 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1330">
-              <caret line="84" column="76" selection-start-line="84" selection-start-column="67" selection-end-line="84" selection-end-column="76" />
+            <state relative-caret-position="-417">
+              <caret line="49" column="17" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="17" />
+              <folding>
+                <element signature="e#24#140#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/plagiarism.py">
+        <entry file="file://$PROJECT_DIR$/static/assets/js/DrawGraph1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1064">
-              <caret line="61" column="34" selection-start-line="61" selection-start-column="34" selection-end-line="61" selection-end-column="34" />
+            <state relative-caret-position="171">
+              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/assets/css/homeS.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3185">
+              <caret line="202" selection-start-line="202" selection-end-line="202" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/home.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="65" column="46" selection-start-line="65" selection-start-column="46" selection-end-line="65" selection-end-column="46" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="n#style#0;n#button#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#form#0;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#0;n#form#0;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#1;n#form#0;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/assets/js/DrawGraph1.js">
+        <entry file="file://$PROJECT_DIR$/static/assets/js/updateResult.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="76" column="32" selection-start-line="76" selection-start-column="32" selection-end-line="76" selection-end-column="32" />
+            <state relative-caret-position="304">
+              <caret line="67" column="42" selection-start-line="67" selection-start-column="42" selection-end-line="67" selection-end-column="42" />
+              <folding>
+                <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#1;n#!!top" expanded="true" />
+                <element signature="e#1317#1323#0" expanded="true" />
+                <element signature="e#1324#1330#0" expanded="true" />
+                <element signature="e#1330#1336#0" expanded="true" />
+                <element signature="n#style#0;n#p#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+                <element signature="e#4#10#0" expanded="true" />
+                <element signature="e#11#17#0" expanded="true" />
+                <element signature="e#17#23#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -115,9 +170,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>error_dna</find>
+      <find>token</find>
+      <find>err</find>
+      <find>type</find>
+      <find>get_ppont_op</find>
+      <find>get_ppoint</find>
+      <find>get_pp</find>
+      <find>get_p</find>
+      <find>get_ppoint_op</find>
+      <find>yyin</find>
+      <find>ff</find>
+      <find>bar</find>
       <find>text</find>
-      <find>console</find>
+      <find>label</find>
+      <find>rgb</find>
+      <find>my-welcome-message'</find>
+      <find>my-welcome-message</find>
+      <find>container</find>
+      <find>click</find>
+      <find>hideme</find>
+      <find>firstVisitPopup</find>
+      <find>first</find>
+      <find>fvpp-blackout</find>
+      <find>error</find>
+      <find>chart</find>
+      <find>result</find>
+      <find>erro</find>
+      <find>5</find>
+      <find>time</find>
+      <find>ShowResult</find>
+      <find>re_time</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -126,9 +208,25 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/plagiarism.py" />
         <option value="$PROJECT_DIR$/static/assets/js/DrawGraph2.js" />
+        <option value="$PROJECT_DIR$/Graph.py" />
+        <option value="$PROJECT_DIR$/plagiarism.py" />
+        <option value="$PROJECT_DIR$/source/makefile (copy)" />
+        <option value="$PROJECT_DIR$/comparator.py" />
+        <option value="$PROJECT_DIR$/app2.py" />
+        <option value="$PROJECT_DIR$/source/JAVAtokenH.l" />
+        <option value="$PROJECT_DIR$/source/makefile" />
+        <option value="$PROJECT_DIR$/source/CtokenH.l" />
+        <option value="$PROJECT_DIR$/source/CtokenS.l" />
         <option value="$PROJECT_DIR$/static/assets/js/DrawGraph1.js" />
+        <option value="$USER_HOME$/AppData/Local/Temp/BNZ.5bb08bd81896eb0/demo.html" />
+        <option value="$USER_HOME$/AppData/Local/Temp/BNZ.5bb08dd119123a6/demo.html" />
+        <option value="$PROJECT_DIR$/../../../jQuery-Plugin-To-Show-A-Popup-Only-Once-Per-Visitor-First-Visit-Popup/demo.html" />
+        <option value="$PROJECT_DIR$/../../../jQuery-Plugin-To-Show-A-Popup-Only-Once-Per-Visitor-First-Visit-Popup/jquery.firstVisitPopup.js" />
+        <option value="$PROJECT_DIR$/static/assets/js/jquery.firstVisitPopup.js" />
+        <option value="$PROJECT_DIR$/static/assets/css/homeS.css" />
+        <option value="$PROJECT_DIR$/templates/home.html" />
+        <option value="$PROJECT_DIR$/static/assets/js/updateResult.js" />
       </list>
     </option>
   </component>
@@ -144,8 +242,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-348" />
-    <option name="y" value="105" />
+    <option name="x" value="865" />
+    <option name="y" value="190" />
     <option name="width" value="1890" />
     <option name="height" value="951" />
   </component>
@@ -177,9 +275,7 @@
             <path>
               <item name="ajax" type="b2602c69:ProjectViewProjectNode" />
               <item name="ajax" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -192,6 +288,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\han\Desktop\LEECH\make_web\ajax\static\assets\js" />
+      <recent name="C:\Users\han\Desktop\LEECH\make_web\ajax\source" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -226,9 +328,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22753036" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11983806" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -258,34 +359,194 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app2.py">
+    <entry file="file://$PROJECT_DIR$/Graph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1330">
-          <caret line="84" column="76" selection-start-line="84" selection-start-column="67" selection-end-line="84" selection-end-column="76" />
+        <state relative-caret-position="19">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/source/.l">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/plagiarism.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1064">
-          <caret line="61" column="34" selection-start-line="61" selection-start-column="34" selection-end-line="61" selection-end-column="34" />
+        <state relative-caret-position="646">
+          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/assets/js/jquery.poptrox.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/assets/js/jquery.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/comparator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="27" column="49" selection-start-line="27" selection-start-column="49" selection-end-line="27" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/makefile (copy)">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/JAVAtokenR.l">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="295" column="35" selection-start-line="295" selection-start-column="35" selection-end-line="295" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/JAVAtokenS.l">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/CtokenR.l">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="411" selection-start-line="411" selection-end-line="411" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/CtokenS.l">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="326" lean-forward="true" selection-start-line="326" selection-end-line="326" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/assets/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-427">
+          <caret line="1400" column="10" lean-forward="true" selection-start-line="1400" selection-start-column="10" selection-end-line="1400" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/BNZ.5bb08bd81896eb0/jquery.firstVisitPopup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="8" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/BNZ.5bb08bd81896eb0/demo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="86" column="38" lean-forward="true" selection-start-line="86" selection-start-column="14" selection-end-line="86" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/BNZ.5bb08dd119123a6/demo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12">
+          <caret line="90" column="44" selection-start-line="90" selection-start-column="44" selection-end-line="90" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../jQuery-Plugin-To-Show-A-Popup-Only-Once-Per-Visitor-First-Visit-Popup/demo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="59" column="24" lean-forward="true" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/assets/js/jquery.firstVisitPopup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../jQuery-Plugin-To-Show-A-Popup-Only-Once-Per-Visitor-First-Visit-Popup/jquery.firstVisitPopup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="988">
+          <caret line="55" lean-forward="true" selection-end-line="62" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/assets/js/DrawGraph2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="234" column="21" selection-start-line="234" selection-start-column="21" selection-end-line="234" selection-end-column="21" />
+        <state relative-caret-position="1814">
+          <caret line="232" column="19" lean-forward="true" selection-start-line="232" selection-start-column="19" selection-end-line="232" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/assets/css/homeS.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3185">
+          <caret line="202" selection-start-line="202" selection-end-line="202" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/assets/js/DrawGraph1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="76" column="32" selection-start-line="76" selection-start-column="32" selection-end-line="76" selection-end-column="32" />
+        <state relative-caret-position="171">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-417">
+          <caret line="49" column="17" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="17" />
+          <folding>
+            <element signature="e#24#140#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="65" column="46" selection-start-line="65" selection-start-column="46" selection-end-line="65" selection-end-column="46" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#form#0;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#form#0;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#1;n#form#0;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/assets/js/updateResult.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="67" column="42" selection-start-line="67" selection-start-column="42" selection-end-line="67" selection-end-column="42" />
+          <folding>
+            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#1;n#!!top" expanded="true" />
+            <element signature="e#1317#1323#0" expanded="true" />
+            <element signature="e#1324#1330#0" expanded="true" />
+            <element signature="e#1330#1336#0" expanded="true" />
+            <element signature="n#style#0;n#p#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+            <element signature="e#4#10#0" expanded="true" />
+            <element signature="e#11#17#0" expanded="true" />
+            <element signature="e#17#23#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

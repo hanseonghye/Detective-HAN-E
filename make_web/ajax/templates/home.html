@@ -20,13 +20,15 @@
     <script src="static/assets/js/DrawGraph1.js"></script>
     <script src="static/assets/js/DrawGraph2.js"></script>
     <script src="static/assets/js/updateResult.js"></script>
+    <script src="static/assets/js/jquery.firstVisitPopup.js"></script>
 
     <script>
 
         var dir = "";
         var Time;
         var vaild_code, invaild_code, pro_result, G_result, Re, G_result2;
-        var max_token, max_token_line
+        var max_token, max_token_line;
+        var re_time
 
         $(function () {
 
@@ -40,6 +42,17 @@
                     contentType: false,
                     processData: false,
                     dataType: 'json',
+                    error: function (jqXHR, testStatus, errorThrown) {
+
+                    },
+                    beforeSend: function () {
+                        $('.re').empty()
+                        $('.loader').removeClass('display-node');
+                    },
+                    complete: function () {
+                        $('.loader').addClass('display-node');
+                    },
+
                     success: function (response) {
 
                         pro_result = response.pr;
@@ -50,6 +63,7 @@
 
                         max_token = response.maxTokenCode
                         max_token_line = response.maxToken
+                        re_time=response.Time;
                         console.log(Time)
 
                         invaild_code = response.er;
@@ -58,21 +72,19 @@
                         $('.buttonclass').empty();
 
                         var button_html = `
-                   <button type="button" id="result_btn"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px;  background-color: #080A8A; color:#ffffff">결과</button>
-                  <button type="button" id="pla_btn"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px; background-color: #080A8A; color:#ffffff">유사도</button>
-                  <button type="button" id="graph_bnt"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px;  background-color: #080A8A; color:#ffffff">그래프</button>`;
+                        <button type="button" id="result_btn"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px;  background-color: #080A8A; color:#ffffff">결과</button>
+                        <button type="button" id="pla_btn"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px; background-color: #080A8A; color:#ffffff">유사도</button>
+                        <button type="button" id="graph_bnt"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px;  background-color: #080A8A; color:#ffffff">그래프</button>`;
 
                         $('.buttonclass').append(button_html);
                         $('.re').empty();
-                        document.getElementById("div1").style.backgroundColor = "rgba(255,255,255,0.3)";
-                        var html = ShowResult(Re, max_token, max_token_line, invaild_code);
+                        document.getElementById("div1").style.backgroundColor = "rgba(255,255,255,0.5)";
+                        var html = ShowResult(Re, max_token, max_token_line, invaild_code, re_time);
                         $('.re').append(html);
 
 
-                    },
-                    error: function (jqXHR, testStatus, errorThrown) {
-                        console.log("error")
                     }
+
                 });
 
             });  // end of file submit
@@ -98,7 +110,7 @@
 
             $('#buttonclass').on('click', '#result_btn', function () {
                 $('.re').empty();
-                var html = ShowResult(Re, max_token, max_token_line, invaild_code);
+                var html = ShowResult(Re, max_token, max_token_line, invaild_code,re_time);
                 $('.re').append(html);
             });
 
@@ -138,94 +150,8 @@
             /*font-family: "Nanum Gothic", sans-serif;*/
         }
 
-        .image {
-            position: relative;
-        }
-
-        .image .text {
-            position: absolute;
-            top: 70%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 5rem;
-            color: white;
-            z-index: 2;
-            text-align: center;
-        }
-
-        .chart .legend {
-            fill: black;
-            font: 14px sans-serif;
-            text-anchor: start;
-            font-size: 12px;
-        }
-
-        .chart text {
-            fill: white;
-            font: 10px sans-serif;
-            text-anchor: end;
-        }
-
-        .chart .label {
-            fill: black;
-            font: 14px sans-serif;
-            text-anchor: end;
-        }
-
-        .bar:hover {
-            fill: brown;
-        }
-
-        .axis path,
-        .axis line {
-            fill: none;
-            stroke: #000;
-            shape-rendering: crispEdges;
-        }
-
-        .node circle {
-            fill: #F06E6E;
-            stroke: #F06E6E;
-            stroke-width: 0.1px;
-        }
-
-        .node text {
-            width: 20px;
-            font: 15px sans-serif;
-            display: block;
-            transform: rotate(-90deg);
-        }
-
-.node {
-	cursor: pointer;
-}
-.tooltip {
-	position: relative;
-	display: inline-block;
-	border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-}
-
-/* Tooltip text */
-.tooltip .tooltiptext {
-	visibility: hidden;
-	width: 120px;
-	background-color: black;
-	color: #fff;
-	text-align: center;
-	padding: 5px 0;
-	border-radius: 6px;
-
-	/* Position the tooltip text - see examples below! */
-	position: absolute;
-	z-index: 1;
-}
-
-.tooltip:hover .tooltiptext {
-	visibility: visible;
-}
 
     </style>
-
 
 </head>
 
@@ -244,14 +170,16 @@
         <form id="uploadform" method="post">
             <input name="file" type="file" style="color:#000000; background-color: #ffffff; opacity:0.8;">
             <br><br>
-            <label style="display:inline-block;">TOKEN</label>
-            <select name="token" style="width:200px; margin:10px; background-color: #ffffff; opacity: 0.8; display:inline-block;">
+            <label style="display:inline-block; background-color:black; font-size: 18px">TOKEN</label>
+            <select name="token"
+                    style="width:200px; margin:10px; background-color: #ffffff; opacity: 0.8; display:inline-block;">
                 <option value="rich">RICH</option>
                 <option value="small">SMALL</option>
             </select>
 
-            <label style="margin-left: 15px; display:inline-block;">ADAPTIVE</label>
-            <select name="adaptive" style="width:200px; margin:10px; background-color: #ffffff; opacity: 0.8; display:inline-block;">
+            <label style="margin-left: 15px; display:inline-block; background-color:black; font-size: 18px">ADAPTIVE</label>
+            <select name="adaptive"
+                    style="width:200px; margin:10px; background-color: #ffffff; opacity: 0.8; display:inline-block;">
                 <option value="on">ON</option>
                 <option value="off">OFF</option>
             </select>
@@ -266,6 +194,13 @@
 
         <div class="btn-group btn-lg">
             <div class="buttonclass" id="buttonclass">
+            </div>
+        </div>
+
+        <div class="loader display-node">
+            <div>
+                <img src="static/images/loader.gif"/>
+                <p style="font-size:30px; color:#ffffff; bold; "> -- 유사도 계산 중 -- </p>
             </div>
         </div>
 

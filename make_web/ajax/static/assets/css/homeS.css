@@ -1,88 +1,203 @@
 
-         html, body{height:100%;  }
-         body{
-              font-weight: bold;
-            /*font-family: "Nanum Gothic", sans-serif;*/
-         }
+html, body {
+    height: 100%;
+}
 
+body {
+    font-weight: bold;
+    /*font-family: "Nanum Gothic", sans-serif;*/
+}
 
-        .btn.sharp {
-          border-radius:0;
-        }
+.btn.sharp {
+    border-radius: 0;
+}
 
-        .re{
-          margin-left: 20px;
-          padding-top: 10px;
-          padding-bottom: 15px;
-          padding-right: 40px;
-          padding-left: 40px;
-/*          background-color:#ffffff;*/
-/*          opacity: 0.3;*/
+.re {
+    margin-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    padding-right: 40px;
+    padding-left: 40px;
+    /*          background-color:#ffffff;*/
+    /*          opacity: 0.3;*/
 
-        }
+}
 
-        .table_style{
-          margin-top:10px; 
-          margin-right:30px; 
-          font-size:15px; 
-          text-align:right
-        }
+.table_style {
+    margin-top: 10px;
+    margin-right: 30px;
+    font-size: 15px;
+    text-align: right
+}
 
-        .showcode{
-          font-size:15; 
-          display: inline-block; 
-          background: #ffffff; 
-          border: 0px;
-        }
+.showcode {
+    font-size: 15;
+    display: inline-block;
+    background: #ffffff;
+    border: 0px;
+}
 
-        input[type='file']::-webkit-file-upload-button
-        {
-          padding: 3px 7px;
-          color:black;
-          font-size:15px;
-          border-radius:3px;
-          background-color: #F2F2F2;
-          border: none;
-        }
+input[type='file']::-webkit-file-upload-button {
+    padding: 3px 7px;
+    color: black;
+    font-size: 15px;
+    border-radius: 3px;
+    background-color: #F2F2F2;
+    border: none;
+}
 
+.node {
+    cursor: pointer;
+}
 
+.overlay {
+    background-color: transparent;
 
-       .node {
-        cursor: pointer;
-      }
+}
 
-      .overlay{
-          background-color:transparent;
-         
-      }
-       
-      .node circle {
-        fill: #fff;
-        stroke: steelblue;
-        stroke-width: 1.5px;
-      }
-       
-      .node text {
-        font-size:10px; 
-        font-family:sans-serif;
-       }
-       
-      .link {
-        fill: none;
-        stroke: #ccc;
-        stroke-width: 1.5px;
-      }
+.node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
 
-      .templink {
-        fill: none;
-        stroke: red;
-        stroke-width: 3px;
-      }
+.node text {
+    font-size: 10px;
+    font-family: sans-serif;
+}
 
-      .ghostCircle.show{
-          display:block;
-      }
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+}
 
-      .ghostCircle, .activeDrag .ghostCircle{
-           display: none;
-      }
+.templink {
+    fill: none;
+    stroke: red;
+    stroke-width: 3px;
+}
+
+.ghostCircle.show {
+    display: block;
+}
+
+.ghostCircle, .activeDrag .ghostCircle {
+    display: none;
+}
+
+.image {
+    position: relative;
+}
+
+.image .text {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    color: white;
+    z-index: 2;
+    text-align: center;
+}
+
+.chart .legend {
+    fill: black;
+    font: 14px sans-serif;
+    text-anchor: start;
+    font-size: 12px;
+}
+
+.chart text {
+    fill: white;
+    font: 13px sans-serif;
+    text-anchor: end;
+    font-weight: bold;
+}
+
+.chart .label {
+    fill: black;
+    font: 16px sans-serif;
+    text-anchor: end;
+    font-weight: bold;
+}
+
+.bar:hover {
+    fill: brown;
+}
+
+.bar text {
+    font-weight: bold;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.node circle {
+    fill: #F06E6E;
+    stroke: #F06E6E;
+    stroke-width: 0.1px;
+}
+
+.node text {
+    width: 20px;
+    font: 15px sans-serif;
+    display: block;
+    transform: rotate(-90deg);
+}
+
+.node {
+    cursor: pointer;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.loader {
+    position: fixed;;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');
+
+}
+
+.loader div {
+    position: fixed;
+    top: 50%;
+    left: 30%;
+
+}
+
+.display-node {
+    display: none;
+}
+

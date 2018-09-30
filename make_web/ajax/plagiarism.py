@@ -11,20 +11,19 @@ def is_cppsrc(srcname):
     return (REGEX.match(srcname) != None)
 
 
-def get_result(test_dir, lcs_mode):
+def get_result(test_dir, lcs_mode, token_V):
     TEST_dir=test_dir
     print('preprocessing...')
 
     srcnames = filter(is_cppsrc,os.listdir(test_dir))
 
     seq_name_pairs = map(lambda srcname: 
-                                (comparator.get_sequence_from(test_dir + srcname), srcname), srcnames[:])
+                                (comparator.get_sequence_from(test_dir + srcname,token_V), srcname), srcnames[:])
 
     print('computing match scores of all pairs...')
     scores = []
 
     name_map=dict()
-    count =0
 
     mother_score=dict()
     error_dna=[]
@@ -39,7 +38,6 @@ def get_result(test_dir, lcs_mode):
     NofC=0
     NofCPP=0
     NofJAVA=0
-    NofPY=0
     Nofelse=0
 
     mtc_N=0

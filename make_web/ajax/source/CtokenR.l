@@ -146,7 +146,7 @@ define_fun2 		[a-zA-Z_]+{stl}[" "]*[&\*]+[a-zA-Z0-9_\n]*"::"?{call_fun}
 fun_end 		[" "\n\t\r]*"const"?[" "\n\t\r]*\{
 
 get_point_op	"->"
-get_ppont_op	"->*"
+get_ppoint_op	"->*"
 
 bit_op			<<|>>|&|\^|\~|\|
 bit_op_0		"<<"
@@ -289,8 +289,8 @@ SWITCH			"switch"[" "\t]*\(
 
 {increment_op}		{ my_print("#1"); }
 {decrement_op}		{ my_print("#2"); }
-{get_ppoint_op}		{ my_print("#14")}
-{get_point_op}		{ my_print("#13")}
+{get_ppoint_op}		{ my_print("#14");}
+{get_point_op}		{ my_print("#13");}
 
 {assignment_op_0}		{ my_print("#30"); }
 {assignment_op_1}		{ my_print("#31"); }
