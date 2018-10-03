@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+
 def get_graph(data):
     file_data = OrderedDict()
     show_data = OrderedDict()

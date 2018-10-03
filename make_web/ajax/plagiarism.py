@@ -13,14 +13,12 @@ def is_cppsrc(srcname):
 
 def get_result(test_dir, lcs_mode, token_V):
     TEST_dir=test_dir
-    print('preprocessing...')
 
     srcnames = filter(is_cppsrc,os.listdir(test_dir))
 
     seq_name_pairs = map(lambda srcname: 
                                 (comparator.get_sequence_from(test_dir + srcname,token_V), srcname), srcnames[:])
 
-    print('computing match scores of all pairs...')
     scores = []
 
     name_map=dict()
@@ -44,7 +42,6 @@ def get_result(test_dir, lcs_mode, token_V):
     mtc=""
 
     for i in seq_name_pairs:
-
         ext=i[1].split('.')
         ext=ext[1]
 
@@ -92,15 +89,8 @@ def get_result(test_dir, lcs_mode, token_V):
 
     for pair in itertools.combinations(seq_name_pairs2,2):
         (a,b) = pair
-        str1=a[0]
-        str2=b[0]
-
-
         str1=re.sub('#ID','',a[0])
         str2=re.sub('#ID','',b[0])
-
-        score1=0;
-        score2=0;
 
         if lcs_mode==0:
             score1=float(comparator.match_score_A(str1,str2))/float(mother_score[a[1]])
@@ -109,10 +99,7 @@ def get_result(test_dir, lcs_mode, token_V):
             score1=float(comparator.match_score_NA(str1,str2))/float(mother_score[a[1]])
             score2=float(comparator.match_score_NA(str2,str1))/float(mother_score[b[1]])
 
-        
-        # score1=float(comparator.match_score_local(str1,str2))/float(mother_score[a[1]])
         score1=score1*100
-        # score2=float(comparator.match_score_local(str2,str1))/float(mother_score[b[1]])
         score2=score2*100
         score=max(score1,score2)
 
@@ -123,7 +110,6 @@ def get_result(test_dir, lcs_mode, token_V):
     scores.sort(reverse=True)
 
     result_st=[]
-    result=dict()
     links_array=[]
     links_array2=[]
     count=1;
@@ -135,8 +121,6 @@ def get_result(test_dir, lcs_mode, token_V):
         str_score=str(score)
         str_score=str_score[:5]
 
-    
-
         len_a = a[0].count('#')
         len_b = b[0].count('#')
         re_link={"source":name_map[name_a],"target":name_map[name_b],"weight":str_score}
@@ -146,15 +130,7 @@ def get_result(test_dir, lcs_mode, token_V):
         re_link2={"number":count,"file1":name_map[name_a],"len1":len_a, "file2":name_map[name_b],"len2":len_b, "score":str_score}
         links_array2.append(re_link2)
 
-        count=count+1    
-
-    result["nodes"]=nodes_array
-    result["links"]=links_array
-
-
-
-    # with open('example.json','w') as make_file:
-    #     json.dump(result,make_file,indent=2)
+        count=count+1
 
     print('plotting result.')
     return (links_array2,nodes_array,links_array , error_dna, re_lang ,TEST_dir, mtc, mtc_N)

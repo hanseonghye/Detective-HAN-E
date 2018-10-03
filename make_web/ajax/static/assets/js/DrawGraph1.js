@@ -1,7 +1,7 @@
 function drawBarG(d){
 
-  var data = d;
-  var chartWidth       = 400,
+  let data = d;
+  let chartWidth       = 400,
       barHeight        = 40,
       groupHeight      = barHeight * data.series.length,
       gapBetweenGroups = 10,
@@ -10,37 +10,37 @@ function drawBarG(d){
 
 
   // Zip the series data together (first values, second values, etc.)
-  var zippedData = [];
-  for (var i=0; i<data.labels.length; i++) {
-    for (var j=0; j<data.series.length; j++) {
+  let zippedData = [];
+  for (let i=0; i<data.labels.length; i++) {
+    for (let j=0; j<data.series.length; j++) {
       zippedData.push(data.series[j].values[i]);
     }
   }
 
   // Color scale
-  var color = d3.scale.category20();
-  var chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length;
+  let color = d3.scale.category20();
+  let chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length;
 
-  var x = d3.scale.linear()
+  let x = d3.scale.linear()
       .domain([0, d3.max(zippedData)])
       .range([0, chartWidth]);
 
-  var y = d3.scale.linear()
+  let y = d3.scale.linear()
       .range([chartHeight + gapBetweenGroups, 0]);
 
-  var yAxis = d3.svg.axis()
+  let yAxis = d3.svg.axis()
       .scale(y)
       .tickFormat('')
       .tickSize(0)
       .orient("left");
 
   // Specify the chart area and dimensions
-  var chart = d3.select(".chart")
+  let chart = d3.select(".chart")
       .attr("width", spaceForLabels + chartWidth + spaceForLegend)
       .attr("height", chartHeight);
 
   // Create bars
-  var bar = chart.selectAll("g")
+  let bar = chart.selectAll("g")
       .data(zippedData)
       .enter().append("g")
       .attr("transform", function(d, i) {
@@ -58,14 +58,14 @@ function drawBarG(d){
       .attr("width", x)
       .attr("height", barHeight - 1)
       .on("click",function(d,i){
-          var click=data.labels[i];
-          var click_bar=click.split(':');
-          var file=click_bar[0]
-          var file1=file.substring(0, file.length-1);
+          let click=data.labels[i];
+          let click_bar=click.split(':');
+          let file=click_bar[0]
+          let file1=file.substring(0, file.length-1);
           file=click_bar[1]
-          var file2=file.substring(1);
+          let file2=file.substring(1);
 
-          var where_dir=dir
+          let where_dir=dir
 
           window.open('show_code?file1='+file1+'&file2='+file2+'&where_dir='+where_dir, '_blank');
       })
@@ -100,18 +100,18 @@ function drawBarG(d){
         .call(yAxis);
 
   // Draw legend
-  var legendRectSize = 18,
+  let legendRectSize = 18,
       legendSpacing  = 4;
 
-  var legend = chart.selectAll('.legend')
+  let legend = chart.selectAll('.legend')
       .data(data.series)
       .enter()
       .append('g')
       .attr('transform', function (d, i) {
-          var height = legendRectSize + legendSpacing;
-          var offset = -gapBetweenGroups/2;
-          var horz = spaceForLabels + chartWidth + 40 - legendRectSize;
-          var vert = i * height - offset;
+          let height = legendRectSize + legendSpacing;
+          let offset = -gapBetweenGroups/2;
+          let horz = spaceForLabels + chartWidth + 40 - legendRectSize;
+          let vert = i * height - offset;
           return 'translate(' + horz + ',' + vert + ')';
       });
 }

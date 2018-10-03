@@ -1,5 +1,5 @@
-all: lex_CS lex_CH lex_JAVAS lex_JAVAH re_pro Alcs_pro nAlcs_pro
-RM = lex_CS lex_CH lex_JAVAS lex_JAVAH lex_CS.c lex_CH.c lex_JAVAS.c lex_JAVAH.c re_pro Alcs_pro nAlcs_pro
+all: lex_CS lex_CR lex_JAVAS lex_JAVAR re_pro Alcs_pro nAlcs_pro
+RM = lex_CS lex_CR lex_JAVAS lex_JAVAR lex_CS.c lex_CR.c lex_JAVAS.c lex_JAVAR.c re_pro Alcs_pro nAlcs_pro
 CC  = gcc
 LEX = lex
 CPP = g++
@@ -7,19 +7,19 @@ CPP = g++
 lex_CS: lex_CS.c
 	$(CC) -g -o $@ $< -ll
 
-lex_CH: lex_CH.c
-    $(CC) -g -o $@ $< -ll
+lex_CR: lex_CR.c
+	$(CC) -g -o $@ $< -ll
 
 lex_JAVAS: lex_JAVAS.c
 	$(CC) -g -o $@ $< -ll
 
-lex_JAVAH: lex_JAVAH.c
+lex_JAVAR: lex_JAVAR.c
 	$(CC) -g -o $@ $< -ll
 
 lex_CS.c: CtokenS.l
 	$(LEX) -o $@ $<
 
-lex_CH.c: CtokenH.l
+lex_CR.c: CtokenR.l
 	$(LEX) -o $@ $<
 
 lex_JAVAS.c: JAVAtokenS.l

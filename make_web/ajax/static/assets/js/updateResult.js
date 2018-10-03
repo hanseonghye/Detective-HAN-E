@@ -1,5 +1,5 @@
 function ShowResult(RE, max_token, max_token_line, invaild_code, time) {
-    var html = '';
+    var html = '<br>';
     html = html +
         `<div>
         <div style="border:none; float: left; width: 20%; padding:15px;">
@@ -44,15 +44,15 @@ function ShowResult(RE, max_token, max_token_line, invaild_code, time) {
         <br><br><br><br><br><br><br><br><br>`
         +
         `<p style="font-size:20px; color:#000000; ">Processing Time </p>`
-        +`<p style="font-size:20px; color:#ffffff; "> &nbsp; &nbsp;&nbsp; `
+        +`<p style="font-size:20px; color:#1335ff; "> &nbsp; &nbsp;&nbsp; `
         +time
         +
         ` sec </p> <br>`+
        ` <p style="font-size:20px; color:#000000; bold; "> MAX Token Code </p>`
         +
         `
-        <input class="showcode" type="submit" style="font-size:20px; color:#ffffff;font-weight: bold;  display:inline-block;  background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden; outline:none;"   name="show_one_code" id="show_one_code"  value=` +
-        max_token + '>' + `<p style="font-size:20px; color:#ffffff; display:inline-block"> - ` + max_token_line + ` tokens </p>`
+        <input class="showcode" type="submit" style="font-size:20px; color:#1335ff;font-weight: bold;  display:inline-block;  background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden; outline:none;"   name="show_one_code" id="show_one_code"  value=` +
+        max_token + '>' + `<p style="font-size:20px;color:#1335ff; display:inline-block"> - ` + max_token_line + ` tokens </p>`
 
     html = html + `
     <br>
@@ -61,12 +61,14 @@ function ShowResult(RE, max_token, max_token_line, invaild_code, time) {
 
     if (invaild_code.length >0) {
         for (var i in invaild_code) {
-            var temp = '<input class="showcode" type="submit"  name="show_one_code" id="show_one_code"  style="font-size:20px; color:#ffffff ;font-weight: bold;  display:inline-block;  background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden; outline:none;" value=' + invaild_code[i] + '>';
+            var temp = '<input class="showcode" type="submit"  name="show_one_code" id="show_one_code"  style="font-size:20px; color:#1335ff ;font-weight: bold;  display:inline-block;  background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden; outline:none;" value=' + invaild_code[i] + '>';
             html = html + temp;
         }
     }else {
-        html=html+`<p> &nbsp; &nbsp;&nbsp;Not exist Invaild Code</p>`
+        html=html+`<p style="font-size:20px; bold;"> &nbsp; &nbsp;&nbsp;Not exist Invaild Code</p>`
     }
+
+    html=html+'<br>'
 
     return html;
 

@@ -40,10 +40,10 @@ body {
 input[type='file']::-webkit-file-upload-button {
     padding: 3px 7px;
     color: black;
-    font-size: 15px;
+    font-size: 20px;
     border-radius: 3px;
     background-color: #F2F2F2;
-    border: none;
+    border: #0b0b0b;
 }
 
 .node {
@@ -70,6 +70,7 @@ input[type='file']::-webkit-file-upload-button {
     fill: none;
     stroke: #ccc;
     stroke-width: 1.5px;
+
 }
 
 .templink {
@@ -147,6 +148,7 @@ input[type='file']::-webkit-file-upload-button {
     width: 20px;
     font: 15px sans-serif;
     display: block;
+    font-weight: bold;
     transform: rotate(-90deg);
 }
 
@@ -200,4 +202,3 @@ input[type='file']::-webkit-file-upload-button {
 .display-node {
     display: none;
 }
-

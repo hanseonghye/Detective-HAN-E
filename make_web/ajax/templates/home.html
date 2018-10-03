@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>명탐정 한이</title>
     <link rel="shortcut icon" href="favicon.ico"/>
     <link rel="stylesheet" href="static/assets/css/main.css"/>
     <link rel="stylesheet" href="static/assets/css/homeS.css"/>
@@ -22,19 +23,20 @@
     <script src="static/assets/js/updateResult.js"></script>
     <script src="static/assets/js/jquery.firstVisitPopup.js"></script>
 
+
     <script>
 
-        var dir = "";
-        var Time;
-        var vaild_code, invaild_code, pro_result, G_result, Re, G_result2;
-        var max_token, max_token_line;
-        var re_time
+        let dir = "";
+        let Time;
+        let invaild_code, pro_result, G_result, Re, G_result2;
+        let max_token, max_token_line;
+        let re_time
 
         $(function () {
 
             $('#file_submit').click(function (event) {
                 event.preventDefault();
-                var formData = new FormData($('#uploadform')[0]);
+                let formData = new FormData($('#uploadform')[0]);
                 $.ajax({
                     type: 'POST',
                     url: '/fileUpload',
@@ -42,19 +44,19 @@
                     contentType: false,
                     processData: false,
                     dataType: 'json',
-                    error: function (jqXHR, testStatus, errorThrown) {
-
-                    },
                     beforeSend: function () {
-                        $('.re').empty()
+                        $('.re').empty();
                         $('.loader').removeClass('display-node');
                     },
                     complete: function () {
                         $('.loader').addClass('display-node');
                     },
+                    error: function (jqXHR, testStatus, errorThrown) {
+                        $('.re').empty()
+                        alert("zip 파일을 넣어 주세요!")
 
+                    },
                     success: function (response) {
-
                         pro_result = response.pr;
                         Time = response.Time;
                         Re = response.re_lang;
@@ -63,23 +65,22 @@
 
                         max_token = response.maxTokenCode
                         max_token_line = response.maxToken
-                        re_time=response.Time;
-                        console.log(Time)
+                        re_time = response.Time;
 
                         invaild_code = response.er;
                         dir = response.dire;
 
                         $('.buttonclass').empty();
 
-                        var button_html = `
+                        let button_html = `
                         <button type="button" id="result_btn"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px;  background-color: #080A8A; color:#ffffff">결과</button>
                         <button type="button" id="pla_btn"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px; background-color: #080A8A; color:#ffffff">유사도</button>
                         <button type="button" id="graph_bnt"  style="margin: auto; text-align: center; line-height: 50px; height:50px;width:110px;  background-color: #080A8A; color:#ffffff">그래프</button>`;
 
                         $('.buttonclass').append(button_html);
                         $('.re').empty();
-                        document.getElementById("div1").style.backgroundColor = "rgba(255,255,255,0.5)";
-                        var html = ShowResult(Re, max_token, max_token_line, invaild_code, re_time);
+                        document.getElementById("div1").style.backgroundColor = "rgba(255,255,255,0.7)";
+                        let html = ShowResult(Re, max_token, max_token_line, invaild_code, re_time);
                         $('.re').append(html);
 
 
@@ -92,8 +93,8 @@
 
             $('#div1').on('click', '#show_one_code', function (event) {
                 event.preventDefault();
-                var file1 = $(this).val();
-                var where_dir = dir;
+                let file1 = $(this).val();
+                let where_dir = dir;
                 window.open('show_one_code?file1=' + file1 + '&where_dir=' + where_dir, '__blank');
 
             });
@@ -101,16 +102,16 @@
 
             $('#div1').on('click', '#score', function (event) {
                 event.preventDefault();
-                var $td = $(this).closest('tr').children('td');
-                var file1 = $td.eq(1).text();
-                var file2 = $td.eq(3).text();
-                var where_dir = dir;
+                let $td = $(this).closest('tr').children('td');
+                let file1 = $td.eq(1).text();
+                let file2 = $td.eq(3).text();
+                let where_dir = dir;
                 window.open('show_code?file1=' + file1 + '&file2=' + file2 + '&where_dir=' + where_dir, '_blank');
             });
 
             $('#buttonclass').on('click', '#result_btn', function () {
                 $('.re').empty();
-                var html = ShowResult(Re, max_token, max_token_line, invaild_code,re_time);
+                let html = ShowResult(Re, max_token, max_token_line, invaild_code, re_time);
                 $('.re').append(html);
             });
 
@@ -118,9 +119,17 @@
             $('#buttonclass').on('click', '#pla_btn', function (event) {
                 event.preventDefault();
                 $('.re').empty();
-                var html = `<svg class="chart"></svg>`;
-                $('.re').append(html);
-                drawBarG(G_result2);
+                if(G_result2.labels.length>0) {
+                    let html = `<br><br><svg class="chart"></svg><br><br>`;
+                    $('.re').append(html);
+                    drawBarG(G_result2);
+                }
+                else{
+                    let html=`<br><br><img src="static/images/boy_stu2.png" style="display: block; width:300px; height:auto; margin-left: auto;
+    margin-right: auto;"/><br><br> <p  style="text-align:center; font-size:40px; color:#b35112; bold; ">Student did not Cheating!</p>`
+                    $('.re').append(html);
+
+                }
             });
 
 
@@ -128,7 +137,13 @@
 
                 event.preventDefault();
                 $('.re').empty();
-                DrawGraph2(G_result);
+                if(G_result.children.length>0){
+                    DrawGraph2(G_result)
+                }else{
+                    let html=`<br><br><img src="static/images/girl_stu2.png" style="display: block; width:300px; height:auto; margin-left: auto;
+    margin-right: auto;"/><br><br> <p  style="text-align:center; font-size:40px; color:#b35112; bold; ">Student did not Cheating!</p>`
+                    $('.re').append(html);
+                }
             });
 
         });
@@ -147,7 +162,7 @@
 
         body {
             font-weight: bold;
-            /*font-family: "Nanum Gothic", sans-serif;*/
+            font-family: "Nanum Gothic", sans-serif;
         }
 
 
@@ -168,7 +183,7 @@
     <section id="main">
 
         <form id="uploadform" method="post">
-            <input name="file" type="file" style="color:#000000; background-color: #ffffff; opacity:0.8;">
+            <input name="file" type="file" accept=".zip" style="color:#000000; background-color: #ffffff; opacity:0.8;">
             <br><br>
             <label style="display:inline-block; background-color:black; font-size: 18px">TOKEN</label>
             <select name="token"
@@ -200,7 +215,7 @@
         <div class="loader display-node">
             <div>
                 <img src="static/images/loader.gif"/>
-                <p style="font-size:30px; color:#ffffff; bold; "> -- 유사도 계산 중 -- </p>
+                <p style="font-size:30px; color:#ffffff; bold; "> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 유사도 계산 중</p>
             </div>
         </div>
 
