@@ -5,11 +5,10 @@
 
 USAGE
 ---
-1. install lex
-
-2. cd System
-   python app2.py  (python2 version)
-   3005 port로 접속
+> 1. install lex
+> 2. cd make_web/ajax
+> 3. python app2.py  (python2 version)
+> 	 3005 port로 접속
 
 
 
