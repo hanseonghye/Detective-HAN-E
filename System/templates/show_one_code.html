@@ -1,0 +1,50 @@
+<html lang="en">
+	<style>
+		.syntaxhighlighter {
+		  max-height: 95% !important;
+		  max-width: 100%  !important;
+		  overflow: auto !important;
+		  font-size: 16px !important;
+		}
+		.split {
+		  height: 100%;
+		  width: 50%;
+		  position: fixed;
+		  z-index: 1;
+		  top: 0;
+		  overflow-x: hidden;
+		  padding-top: 20px;
+		}
+	</style>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta charset="UTF-8" />
+		<title>명탐정 한이</title>
+		<script charset='euc-kr' type="text/javascript" src="{{url_for('static', filename='scripts/scripts2/shCore.js')}}"></script>
+		<script charset='euc-kr' type="text/javascript" src="{{url_for('static', filename='scripts/scripts2/shBrushCpp.js')}}"></script>
+
+		<link href="{{url_for('static', filename='scripts/styles/shCore.css')}}"  rel="stylesheet" type="text/css" />
+		<link href="{{url_for('static', filename='scripts/styles/shThemeDefault.css')}}" rel="stylesheet" type="text/css" />
+
+		<meta charset="UTF-8">
+		<title>Title</title>
+	</head>
+
+	<body>
+
+		<script type="text/javascript">
+			SyntaxHighlighter.all()
+		</script>
+
+
+		<pre class="brush: c">
+			{{File_name}}{{File}}
+		</pre>
+
+
+
+
+	</body>
+
+</html>

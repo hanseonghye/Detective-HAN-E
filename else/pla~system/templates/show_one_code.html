@@ -1,0 +1,51 @@
+<html lang="en">
+	<style>
+		.syntaxhighlighter {
+		  max-height: 95% !important;
+		  max-width: 100%  !important;
+		  overflow: auto !important;
+		  font-size: 16px !important;
+		}
+
+		.split {
+		  height: 100%;
+		  width: 50%;
+		  position: fixed;
+		  z-index: 1;
+		  top: 0;
+		  overflow-x: hidden;
+		  padding-top: 20px;
+		}
+
+
+
+	</style>
+
+	<head>
+		<script type="text/javascript" src="{{url_for('static', filename='scripts/shCore.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='scripts/shBrushCpp.js')}}"></script>
+
+		<link href="{{url_for('static', filename='styles/shCore.css')}}"  rel="stylesheet" type="text/css" />
+		<link href="{{url_for('static', filename='styles/shThemeDefault.css')}}" "scripts/shThemeDefault.css" rel="stylesheet" type="text/css" />
+
+		<meta charset="UTF-8">
+		<title>Title</title>
+	</head>
+
+	<body>
+
+		<script type="text/javascript">
+			SyntaxHighlighter.all()
+		</script>
+
+
+		<pre class="brush: c">
+			{{File_name}}{{File}}
+		</pre>
+
+		
+	
+
+	</body>
+
+</html>

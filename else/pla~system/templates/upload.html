@@ -1,0 +1,89 @@
+<!DOCTYPE HTML >
+<html lang="en">
+
+	<head>
+		<link rel="shortcut icon" href="">
+		<meta charset="UTF-8">
+		<title>걸리면 F</title>
+
+	</head>
+
+	<style>
+
+		@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+		
+		body{
+			font-family:nanumgothic;
+		}
+		
+		.body1{
+			text-align: center;
+	   		margin-top: 200px;
+		}
+		
+		input[type='submit']
+		{
+			padding: 3px 7px;
+			color:#fff;
+			font-size:12px;
+			background-color: midnightblue;
+			border-radius:3px;
+			border: none;
+		}
+		
+		input[type='file']::-webkit-file-upload-button
+		{
+			padding: 3px 7px;
+			color:#fff;
+			font-size:12px;
+			background-color: midnightblue;
+			border-radius:3px;
+			border: none;
+		}
+		
+		input[type='button']
+		{
+			padding: 3px 7px;
+			color:#fff;
+			font-size:12px;
+			background-color: skyblue;
+			border-radius:3px;
+			border: none;
+		}
+		
+		.body2{
+			text-align: center;
+		}
+
+
+	</style>
+
+	<body>
+	
+		<div class="body1">
+			<img src="/static/image/logo.png" style="width:300px; height:auto;">
+			<br>
+			<h1 style="color:teal;">IF caught, then F &nbsp; v1.7b</h1>
+			
+			<form id="upload-form" action="{{ url_for('upload') }}" method ="POST" enctype="multipart/form-data">
+				<input type="file" name="file">
+				<input type="submit" value="submit" >
+				<span style="color:#C0C0C0"><p> import only zip file</p> </span>
+			</form>
+		</div>
+
+		<div class="body2">
+			{% with messages = get_flashed_messages() %}
+			{%if messages %}
+			{% for message in messages %}
+				<p>{{message}}</p>
+			{% endfor %}
+			{% endif %}
+			{% endwith %}
+		</div>
+
+
+
+	</body>
+
+</html>

@@ -1,0 +1,4 @@
+java -jar jplag-v2.11.9-SNAPSHOT.jar -l java17 -c test1
+
+java -jar jplag-2.11.9-SNAPSHOT.jar -l c/c++ -r /tmp/jplag_results_exercise1/ -s test1
+ java -jar jplag-2.11.9-SNAPSHOT-jar-with-dependencies.jar -l c/c++ -r /tmp/jplag_results_exercise1/ -s  test1/
